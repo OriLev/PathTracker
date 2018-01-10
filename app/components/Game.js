@@ -104,12 +104,11 @@ function ButtonGroup(props) {
 		<div  className = 'btnGrp'>
 				{
 					buttons.map((button, index) => {
-						const {text, classes, disabled, activated, onClick} = button;
+						const {text, classes, disabled, onClick} = button;
 						return (
 							<button
 								type = "button" 
-								aria-pressed = {activated()}
-								disabled = {disabled()}
+								disabled = {disabled}
 								key = {'button' + index} 
 								className = {classes}
 								style = {buttonHeight.style}
@@ -126,38 +125,30 @@ function ButtonGroup(props) {
 
 function GameButtonsPanel(props) {
 	const {start, end, startFlag, endFlag} = props.state;
-	const disabledCheck = (location) => {
+	const checkIfDisabled = (location) => {
 				if (location.length > 0) {
 					return true
 				} else {
 					return false
 				}
 	}
-	console.log('button panel:')
-	console.log(props)
-	console.log('endFlag = ' + props.state.endFlag);
 	const buttons = [
 		{
 			text: 'Start',
 			classes: 'btn' + (startFlag ? ' pressed':''),
-			disabled: () => {return disabledCheck(start)},
-			activated: () => {
-				console.log(startFlag)
-				return startFlag},
+			disabled: checkIfDisabled(start),
 			onClick: props.handleClickOnButtons.handleStartClick,
 		},
 		{
 			text: 'End',
 			classes: 'btn' + (endFlag ? ' pressed':''),
-			disabled: () => {return disabledCheck(end)},
-			activated: () => {return endFlag},
+			disabled: checkIfDisabled(end),
 			onClick: props.handleClickOnButtons.handleEndClick,
 		},
 		{
 			text: 'Go!',
 			classes: 'btn success',
-			activated: () => {return false},
-			disabled: () => {return (!disabledCheck(start) || !disabledCheck(end))},
+			disabled: (!checkIfDisabled(start) || !checkIfDisabled(end)),
 			onClick: props.handleClickOnButtons.handleGoClick,
 		}
 	];
