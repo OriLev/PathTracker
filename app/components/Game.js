@@ -8,7 +8,7 @@ function Cell(props) {
 	
 	const {x, y} = props.cellData;
 	props = props.props;
-	const {board, colorA, colorB, start, end} = props.state;
+	const {board, colorA, colorB, colorC, start, end} = props.state;
 	const lengthY = board.length;
 	// const styles = {
 	// 	cell: {	
@@ -20,7 +20,10 @@ function Cell(props) {
 		<div className = 'cellShell'
 			style = {{'height': (40/lengthY) + 'vh', 'width': (40/lengthY) + 'vh'}}>
 			<div className = 'cell'
-				style = {{'backgroundColor': (board[y][x].allowed ? colorA : colorB)}}
+				style = {{'backgroundColor': 
+											(board[y][x].stepVisited >= 0) ? colorC : (board[y][x].allowed ? colorA : colorB)
+	
+								}}
 				onClick = {props.handleClickOnBoard.bind(null, x, y)}
 			>
 				{(start[0] === x) && (start[1] === y) && <div>start</div>}
@@ -155,7 +158,7 @@ function GameButtonsPanel(props) {
 			classes: 'btn success',
 			activated: () => {return false},
 			disabled: () => {return (!disabledCheck(start) || !disabledCheck(end))},
-			onClick: () => {},
+			onClick: props.handleClickOnButtons.handleGoClick,
 		}
 	];
 	console.log('buttons ok') 
@@ -184,7 +187,8 @@ function GameScreen(props) {
 			<GameButtonsPanel state = {props.state} 
 					handleClickOnButtons = {{
 						handleStartClick: props.handleClicks.handleStartClick,
-						handleEndClick: props.handleClicks.handleEndClick
+						handleEndClick: props.handleClicks.handleEndClick,
+						handleGoClick: props.handleClicks.handleGoClick	
 					}}
 			/>
 		</div>
