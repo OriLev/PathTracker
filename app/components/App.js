@@ -5,11 +5,15 @@ const Router = ReactRouter.BrowserRouter;
 const Route = ReactRouter.Route;
 const Switch = ReactRouter.Switch;
 const Game = require('./Game');
+const pathFind = require('../utils/BFS');
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
 function boardReset(lengthX, lengthY) {
+	
 	console.log('creating board')
+	console.log('path?');
+	console.log(pathFind);
 	const board = [];
 	for (let i=0; i<lengthY; i++) {
 		board[i] = [];
@@ -44,18 +48,23 @@ class App extends React.Component {
 		this.handleClickOnBoard = this.handleClickOnBoard.bind(this);
 		this.handleStartClick = this.handleStartClick.bind(this);
 		this.handleEndClick = this.handleEndClick.bind(this);
+		this.handleGoClick = this.handleGoClick.bind(this);
 		this.updateStartLocation = this.updateStartLocation.bind(this);
 		this.updateEndLocation = this.updateEndLocation.bind(this);
+		this.updatePath = this.updatePath.bind(this);
 	}
 
 	handleClickOnBoard(x, y) {
 		console.log('trying to update state');
+		const board = this.state.board;
 		if (this.state.startFlag) {
 			this.updateStartLocation(x, y);
 		} else if (this.state.endFlag) {
 			this.updateEndLocation(x, y);
 		} else {
-			const tempBoard = this.state.board;
+			const tempBoard = board.map((row) =>{
+				return row.map((cell)=>Object.assign({}, cell));
+			})
 			tempBoard[y][x].allowed = this.state.board[y][x].allowed ? false : true;
 			console.log(tempBoard)
 			this.setState(() => {
@@ -82,6 +91,28 @@ class App extends React.Component {
 		})
 	}
 
+	handleGoClick() {
+		// console.log('go pressed!')
+		const {start, end, board} = this.state;
+		const boardCopy = board.map((row) =>{
+			return row.map((cell)=>Object.assign({}, cell));
+		})
+		const path = pathFind(boardCopy, start, end);
+		const step = -1;
+		const addSteps = (path, step) => {
+			if (path.length === 0) {
+				return
+			}
+			this.updatePath(path[0],step+1)
+			const timeoutForStepAddition = window.setTimeout(addSteps.bind(null, path.slice(1), step+1), 500)
+		}
+		addSteps(path, step);
+		// async path.map( (step, index) => {
+		// 		console.log('update');
+		// 		await window.setTimeout(this.updatePath.bind(null,step,index), 500)
+		// })
+	}
+
 	updateStartLocation(x, y) {
 		this.setState(() => {
 			return {
@@ -100,6 +131,21 @@ class App extends React.Component {
 		})
 	}
 
+	updatePath(step, stepNum) {
+		const board = this.state.board;
+		const tempBoard = board.map((row) =>{
+			return row.map((cell)=>Object.assign({}, cell));
+		})
+		const [x, y] = step;
+		tempBoard[y][x].stepVisited	= stepNum;
+			
+		this.setState(() => {
+			return {
+				board: tempBoard 
+			}
+		})
+	}
+
   render() {
     return (
     <Router>
@@ -112,7 +158,8 @@ class App extends React.Component {
 		    					handleClicks = {{
 		    						handleClickOnBoard: this.handleClickOnBoard,
 		    						handleStartClick: this.handleStartClick,
-		    						handleEndClick: this.handleEndClick
+		    						handleEndClick: this.handleEndClick,
+		    						handleGoClick: this.handleGoClick
 		    					}}
 		    					updateLocations = {{
 		    						updateStartLocation: this.updateStartLocation,
