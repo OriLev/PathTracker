@@ -1,0 +1,16 @@
+{
+    "extends": "standard",
+    "plugins": ["react"],
+    "rules": {
+    	"no-tabs": "off",
+    	"react/jsx-uses-react": 2,
+    	"react/jsx-uses-vars": 2,
+  		"comma-dangle": ["error", {
+	  	  "arrays": "never",
+	  	  "objects": "always",
+	  	  "imports": "never",
+	  	  "exports": "never",
+	  	  "functions": "never"
+	  	}]
+   	}
+}
