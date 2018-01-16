@@ -16,7 +16,7 @@
       "react"
     ],
     "plugins": [
-      "transform-es2015-destructuring", 
+      "transform-es2015-destructuring",
       "transform-object-rest-spread"
     ]
   },
@@ -29,8 +29,10 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.8",
     "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
