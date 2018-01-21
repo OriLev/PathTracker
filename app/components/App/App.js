@@ -1,12 +1,11 @@
-import findPath from '../utils/BFS';
+import React from 'react';
+import PropTypes from 'prop-types';
+import * as ReactRouter from 'react-router-dom';
+import findPath from '../../utils/BFS';
+import Game from '../Game/Game';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const ReactRouter = require('react-router-dom');
-
-// const Router = ReactRouter.BrowserRouter;
 const { BrowserRouter, Route, Switch, } = ReactRouter;
-const Game = require('./Game');
+
 
 // const Settings = require('./Settings');
 // const Results = require('./Results');
@@ -94,14 +93,15 @@ class App extends React.Component {
     const boardCopy = copyBoard(board);
     const path = findPath(boardCopy, startingPoint, endingPoint);
     const stepCounter = -1;
-    const drawPath = (pathRemaining, stepNumber) => {
-      if (pathRemaining.length === 0) {
-        return;
-      }
-      this.updatePathOnBoard(pathRemaining[0], stepNumber + 1);
-      window.setTimeout(drawPath.bind(null, pathRemaining.slice(1), stepNumber + 1), 500);
-    };
-    drawPath(path, stepCounter);
+    this.drawPath(path, stepCounter);
+  }
+
+  drawPath(pathRemaining, stepNumber) {
+    if (pathRemaining.length === 0) {
+      return;
+    }
+    this.updatePathOnBoard(pathRemaining[0], stepNumber + 1);
+    window.setTimeout(this.drawPath.bind(this, pathRemaining.slice(1), stepNumber + 1), 500);
   }
 
   updateStartLocation(x, y) {
@@ -123,7 +123,6 @@ class App extends React.Component {
     const boardCopy = copyBoard(board);
     const [ x, y ] = step;
     boardCopy[y][x].stepVisited	= stepNum;
-
     this.setState({ board: boardCopy, });
   }
   render() {
@@ -139,6 +138,10 @@ class App extends React.Component {
       toggleEndSettingFlag,
       findAndDrawPath,
     };
+    const gameProps = {
+      state: this.state,
+      handleClicks,
+    };
     return (
       <BrowserRouter>
         <div className="container">
@@ -147,10 +150,7 @@ class App extends React.Component {
               exact
               path="/"
               render={ () => (
-                <Game
-                  state={ this.state }
-                  handleClicks={ { ...handleClicks, } }
-                />
+                <Game { ...gameProps } />
                 ) }
             />
           </Switch>
