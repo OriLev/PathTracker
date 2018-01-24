@@ -7,8 +7,8 @@ import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 export default function GameScreen({ state, handleClicks, }) {
   console.log('in gameScreen');
   const {
-    toggleStartSettingFlag,
-    toggleEndSettingFlag,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
     findAndDrawPath,
     handleClickOnBoard,
   } = handleClicks;
@@ -37,8 +37,8 @@ export default function GameScreen({ state, handleClicks, }) {
     pathEndingPoint,
   };
   const buttonPanelProps = {
-    toggleStartSettingFlag,
-    toggleEndSettingFlag,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
     findAndDrawPath,
     state: buttonState,
   };

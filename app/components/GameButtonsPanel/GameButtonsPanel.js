@@ -5,8 +5,8 @@ import ButtonGroup from '../ButtonGroup/ButtonGroup';
 export default function GameButtonsPanel(props) {
   const {
     state,
-    toggleStartSettingFlag,
-    toggleEndSettingFlag,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
     findAndDrawPath,
   } = props;
   const {
@@ -29,13 +29,13 @@ export default function GameButtonsPanel(props) {
       text: 'START',
       classes: `btn${startButtonPressed ? ' pressed' : ''}`,
       disabled: isStartOrEndButtonDisabled(pathStartingPoint),
-      onClick: toggleStartSettingFlag,
+      onClick: toggleStartButtonPressed,
     },
     {
       text: 'END',
       classes: `btn${endButtonPressed ? ' pressed' : ''}`,
       disabled: isStartOrEndButtonDisabled(pathEndingPoint),
-      onClick: toggleEndSettingFlag,
+      onClick: toggleEndButtonPressed,
     },
     {
       text: 'GO!',
@@ -57,7 +57,7 @@ export default function GameButtonsPanel(props) {
 
 GameButtonsPanel.propTypes = {
   state: PropTypes.object.isRequired,
-  toggleStartSettingFlag: PropTypes.func.isRequired,
-  toggleEndSettingFlag: PropTypes.func.isRequired,
+  toggleStartButtonPressed: PropTypes.func.isRequired,
+  toggleEndButtonPressed: PropTypes.func.isRequired,
   findAndDrawPath: PropTypes.func.isRequired,
 };

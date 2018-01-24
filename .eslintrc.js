@@ -4,6 +4,7 @@ module.exports = {
     env: {
       "browser": true,
     },
+    parser: "babel-eslint",
     rules: {
       "no-tabs": "off",
       "react/jsx-uses-react": "error",

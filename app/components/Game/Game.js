@@ -5,8 +5,37 @@ import GameHeader from '../GameHeader/GameHeader';
 import GameScreen from '../GameScreen/GameScreen';
 
 export default function Game({ state, handleClicks, }) {
-  const gameScreenProps = { state, handleClicks, };
-  const gameHeaderProps = { state, };
+  const {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  } = state;
+  const gameHeaderState = {
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  };
+  const gameScreenState = {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  };
+  const gameScreenProps = {
+    state: gameScreenState,
+    handleClicks,
+  };
+  const gameHeaderProps = { state: gameHeaderState, };
   return (
     <div className="gameContainer">
       <GameHeader { ...gameHeaderProps } />

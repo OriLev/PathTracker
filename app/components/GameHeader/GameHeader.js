@@ -6,10 +6,6 @@ import Instructions from '../Instructions/Instructions';
 export default function GameHeader({ state, }) {
   const settingsText = '<-- Settings';
   const {
-    colorA,
-    colorB,
-    colorC,
-    board,
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,

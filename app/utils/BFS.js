@@ -1,4 +1,4 @@
-const findPath = (field, startP, endP) => {
+export default function findPath({ field, startPoint, endPoint, }) {
   const path = [];
 
   // tests if the point is inside the tested field
@@ -13,7 +13,7 @@ const findPath = (field, startP, endP) => {
 
   // tests if the point was already
   const visited = function (point) {
-    if (field[point[0]][point[1]].stepVisited < 0) {
+    if (field[point[0]][point[1]].numberOfStepInPath < 0) {
       return false;
     }
     return true;
@@ -30,7 +30,7 @@ const findPath = (field, startP, endP) => {
 
   // tests if the tested point is in fact the ending point of the search
   const isEndPoint = function (point) {
-    if (point === endP) {
+    if (point === endPoint) {
       return true;
     }
     return false;
@@ -76,17 +76,17 @@ const findPath = (field, startP, endP) => {
   // the BFS algorithm that searches for a path between the 'start' and 'end' points
   // returns 'true' if a path was found and 'false' if not
   const pathExists = function () {
-    if (legalPoint(startP) && legalPoint(endP)) {
-      const testingQue = [ startP, ];
-      field[testingQue[0][0]][testingQue[0][1]].stepVisited = 0;
+    if (legalPoint(startPoint) && legalPoint(endPoint)) {
+      const testingQue = [ startPoint, ];
+      field[testingQue[0][0]][testingQue[0][1]].numberOfStepInPath = 0;
       while (testingQue.length > 0) {
         const currStep = testingQue[0];
-        if (currStep[0] === endP[0] && currStep[1] === endP[1]) return true;
+        if (currStep[0] === endPoint[0] && currStep[1] === endPoint[1]) return true;
 
-        const currStepNum = field[currStep[0]][currStep[1]].stepVisited;
+        const currStepNum = field[currStep[0]][currStep[1]].numberOfStepInPath;
         const allowedSteps = legalNeighbours(getNeighbours(currStep));
         allowedSteps.forEach((nextStep) => {
-          field[nextStep[0]][nextStep[1]].stepVisited = currStepNum + 1;
+          field[nextStep[0]][nextStep[1]].numberOfStepInPath = currStepNum + 1;
           field[nextStep[0]][nextStep[1]].previous = currStep;
           testingQue.push(nextStep);
         });
@@ -99,9 +99,9 @@ const findPath = (field, startP, endP) => {
 
   // a function that filles the 'path' object with pairs of key = step number : value = the tile location
   const buildPath = function () {
-    let stepNum = field[endP[0]][endP[1]].stepVisited;
-    let currStep = endP;
-    path[0] = startP;
+    let stepNum = field[endPoint[0]][endPoint[1]].numberOfStepInPath;
+    let currStep = endPoint;
+    path[0] = startPoint;
     while (stepNum > 0) {
       path[stepNum] = currStep;
       stepNum--;
@@ -111,10 +111,7 @@ const findPath = (field, startP, endP) => {
 
   if (pathExists()) {
     buildPath();
-    // gameService.pathExistsFlag = true;
   }
 
   return path;
-};
-
-export default findPath;
+}
