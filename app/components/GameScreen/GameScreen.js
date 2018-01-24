@@ -4,10 +4,8 @@ import Board from '../Board/Board';
 import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 
-export default function GameScreen(props) {
-  const { state, handleClicks, } = props;
+export default function GameScreen({ state, handleClicks, }) {
   console.log('in gameScreen');
-  console.log(props);
   const {
     toggleStartSettingFlag,
     toggleEndSettingFlag,

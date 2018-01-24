@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Instructions from '../Instructions/Instructions';
 
-export default function GameHeader(props) {
-  const { state, } = props;
+export default function GameHeader({ state, }) {
   const settingsText = '<-- Settings';
   const {
     colorA,

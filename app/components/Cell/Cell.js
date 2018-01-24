@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Cell(props) {
-  // console.log('props Cell:')
-  // console.log(props)
-  const { state, cellIndex, handleClickOnBoard, } = props;
+export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
   const { x, y, } = cellIndex;
   const {
     colorA,
@@ -27,7 +24,7 @@ export default function Cell(props) {
     if (currentCell.stepVisited >= 0) {
       return colorC;
     }
-    if (!currentCell.allowed) {
+    if (!currentCell.isAllowedToBeSteppedOn) {
       console.log('not allowed!');
       return colorB;
     }
@@ -58,3 +55,9 @@ export default function Cell(props) {
     </div>
   );
 }
+
+Cell.propTypes = {
+  state: PropTypes.object.isRequired,
+  cellIndex: PropTypes.object.isRequired,
+  handleClickOnBoard: PropTypes.func.isRequired,
+};

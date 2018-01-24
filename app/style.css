@@ -85,7 +85,7 @@
 	border-left: solid 2px gray;
 }
 
-.btnGrp {
+.buttonGroup {
 	flex-basis: 50%;
 	height: 50%;
 	display: flex;

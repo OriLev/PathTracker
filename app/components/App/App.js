@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as ReactRouter from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import findPath from '../../utils/BFS';
 import Game from '../Game/Game';
-
-const { BrowserRouter, Route, Switch, } = ReactRouter;
-
-
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
@@ -18,7 +14,7 @@ function resetBoard(lengthX, lengthY) {
     board[i] = [];
     for (let j = 0; j < lengthX; j += 1) {
       board[i][j] = {
-        allowed: true,
+        isAllowedToBeSteppedOn: true,
         stepVisited: -1,
       };
     }
@@ -32,6 +28,19 @@ function copyBoard(board) {
 }
 
 export default class App extends React.Component {
+  static get defaultProps() {
+    return {
+      dimensions: {
+        x: 12,
+        y: 12,
+      },
+      colors: {
+        A: 'red',
+        B: 'blue',
+        C: 'green',
+      },
+    }
+  };
   constructor(props) {
     super(props);
 
@@ -51,7 +60,7 @@ export default class App extends React.Component {
     this.handleClickOnBoard = this.handleClickOnBoard.bind(this);
     this.toggleStartSettingFlag = this.toggleStartSettingFlag.bind(this);
     this.toggleEndSettingFlag = this.toggleEndSettingFlag.bind(this);
-    this.toggleAllowedStateOfCell = this.toggleAllowedStateOfCell.bind(this);
+    this.toggleCellAllowedToBeSteppedOn = this.toggleCellAllowedToBeSteppedOn.bind(this);
     this.findAndDrawPath = this.findAndDrawPath.bind(this);
     this.updateStartLocation = this.updateStartLocation.bind(this);
     this.updateEndLocation = this.updateEndLocation.bind(this);
@@ -64,21 +73,22 @@ export default class App extends React.Component {
   }
 
   handleClickOnBoard(x, y) {
-    console.log(`${x} ${y}`);
     if (this.state.startButtonPressed) {
-      this.updateStartLocation(x, y);
-    } else if (this.state.endButtonPressed) {
-      this.updateEndLocation(x, y);
-    } else {
-      this.toggleAllowedStateOfCell(x, y);
+      return this.updateStartLocation(x, y);
     }
+
+    if (this.state.endButtonPressed) {
+      return this.updateEndLocation(x, y);
+    }
+
+    return this.toggleCellAllowedToBeSteppedOn(x, y);
   }
 
-  toggleAllowedStateOfCell(x, y) {
+  toggleCellAllowedToBeSteppedOn(x, y) {
     console.log('toggling cell state');
     const { board, } = this.state;
     const boardCopy = copyBoard(board);
-    boardCopy[y][x].allowed = !this.state.board[y][x].allowed;
+    boardCopy[y][x].isAllowedToBeSteppedOn = !this.state.board[y][x].isAllowedToBeSteppedOn;
     console.log('board copy:');
     console.log(boardCopy);
     this.setState({ board: boardCopy, });
@@ -170,21 +180,7 @@ export default class App extends React.Component {
   }
 }
 
-App.defaultProps = {
-  dimensions: {
-    x: 12,
-    y: 12,
-  },
-  colors: {
-    A: 'red',
-    B: 'blue',
-    C: 'green',
-  },
-};
-
 App.propTypes = {
   dimensions: PropTypes.object,
   colors: PropTypes.object,
 };
-
-module.exports = App;

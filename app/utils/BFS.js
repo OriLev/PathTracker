@@ -21,9 +21,9 @@ const findPath = (field, startP, endP) => {
 
   // tests if a certain step is allowed
   const allowedStep = function (point) {
-    if (field[point[1]][point[0]].allowed) {
+    if (field[point[1]][point[0]].isAllowedToBeSteppedOn) {
       return true;
-    } else if (!field[point[0]][point[1]].allowed) {
+    } else if (!field[point[0]][point[1]].isAllowedToBeSteppedOn) {
       return false;
     }
   };

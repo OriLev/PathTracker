@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Row from '../Row/Row';
 
-export default function Board(props) {
-  const { state, handleClickOnBoard, } = props;
+export default function Board({ state, handleClickOnBoard, }) {
   const {
     colorA,
     colorB,
@@ -12,8 +11,6 @@ export default function Board(props) {
     pathStartingPoint,
     pathEndingPoint,
   } = state;
-  console.log('props Board: ');
-  console.log(props);
   return (
     <div className="board">
       {board.map((row, indexY) => {

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Instructions(props) {
-  const { state, } = props;
+export default function Instructions({ state, }) {
   function buildInstructionArray(appState) {
     const instructionList = [];
     const {

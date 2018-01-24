@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from '../Cell/Cell';
 
-export default function Row(props) {
-  // console.log('props Row: ')
-  // console.log(props)
-  const { state, indexY, handleClickOnBoard, } = props;
+export default function Row({ state, indexY, handleClickOnBoard, }) {
   const {
     colorA,
     colorB,

@@ -1,30 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ButtonGroup(props) {
-  const { buttons, } = props;
-  const buttonHeight = {
-    style: {
-      height: `${100 / props.buttons.length}%`,
-    },
+export default function ButtonGroup({ buttons, }) {
+  const style = {
+    height: `${100 / buttons.length}%`,
   };
 
   return (
-    <div className="btnGrp">
+    <div className="buttonGroup">
       {
         buttons.map((button, index) => {
           const {
- text, classes, disabled, onClick,
-} = button;
+            text,
+            classes,
+            disabled,
+            onClick,
+          } = button;
+          const buttonProps = {
+            type: 'button',
+            key: `button${index}`,
+            className: classes,
+            style,
+            onClick,
+            disabled,
+          };
           return (
-            <button
-              type="button"
-              disabled={ disabled }
-              key={ `button${index}` }
-              className={ classes }
-              style={ buttonHeight.style }
-              onClick={ onClick }
-            >
+            <button { ...buttonProps }>
               {text}
             </button>
           );
@@ -33,3 +34,7 @@ export default function ButtonGroup(props) {
     </div>
   );
 }
+
+ButtonGroup.propTypes = {
+  buttons: PropTypes.array.isRequired,
+};

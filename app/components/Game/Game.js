@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import GameHeader from '../GameHeader/GameHeader';
 import GameScreen from '../GameScreen/GameScreen';
 
-export default function Game(props) {
-  const { state, handleClicks, } = props;
+export default function Game({ state, handleClicks, }) {
   const gameScreenProps = { state, handleClicks, };
   const gameHeaderProps = { state, };
   return (
