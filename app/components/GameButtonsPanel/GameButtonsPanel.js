@@ -4,7 +4,7 @@ import ButtonGroup from '../ButtonGroup/ButtonGroup';
 
 export default function GameButtonsPanel(props) {
   const {
-    startingPoint, endingPoint, startButtonPressed, endButtonPressed,
+    pathStartingPoint, pathEndingPoint, startButtonPressed, endButtonPressed,
   } = props.state;
   const checkIfDisabled = (location) => {
     if (location.length > 0) {
@@ -14,22 +14,22 @@ export default function GameButtonsPanel(props) {
   };
   const buttons = [
     {
-      text: 'Start',
+      text: 'START',
       classes: `btn${startButtonPressed ? ' pressed' : ''}`,
-      disabled: checkIfDisabled(startingPoint),
-      onClick: props.handleClickOnButtons.toggleStartSettingFlag,
+      disabled: checkIfDisabled(pathStartingPoint),
+      onClick: props.toggleStartSettingFlag,
     },
     {
-      text: 'End',
+      text: 'END',
       classes: `btn${endButtonPressed ? ' pressed' : ''}`,
-      disabled: checkIfDisabled(endingPoint),
-      onClick: props.handleClickOnButtons.toggleEndSettingFlag,
+      disabled: checkIfDisabled(pathEndingPoint),
+      onClick: props.toggleEndSettingFlag,
     },
     {
-      text: 'Go!',
+      text: 'GO!',
       classes: 'btn success',
-      disabled: (!checkIfDisabled(startingPoint) || !checkIfDisabled(endingPoint)),
-      onClick: props.handleClickOnButtons.findAndDrawPath,
+      disabled: (!checkIfDisabled(pathStartingPoint) || !checkIfDisabled(pathEndingPoint)),
+      onClick: props.findAndDrawPath,
     },
   ];
   console.log('buttons ok');

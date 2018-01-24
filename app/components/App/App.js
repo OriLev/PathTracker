@@ -10,7 +10,7 @@ const { BrowserRouter, Route, Switch, } = ReactRouter;
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
-function boardReset(lengthX, lengthY) {
+function resetBoard(lengthX, lengthY) {
   console.log('creating board');
 
   const board = [];
@@ -31,7 +31,7 @@ function copyBoard(board) {
   return (board.map(row => (row.map(cell => ({ ...cell, })))));
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,11 +39,11 @@ class App extends React.Component {
       colorA: props.colors.A,
       colorB: props.colors.B,
       colorC: props.colors.C,
-      board: boardReset(props.dimensions.x, props.dimensions.y),
-      startingPoint: [], // the position on the board of 'start'
-      endingPoint: [], // the position on the board of 'end'
-      startButtonPressed: false, // 'true' if the user is in 'choose start point' mode
-      endButtonPressed: false, // 'true' if the user is in 'choose end point' mode
+      board: resetBoard(props.dimensions.x, props.dimensions.y),
+      pathStartingPoint: [],
+      pathEndingPoint: [],
+      startButtonPressed: false,
+      endButtonPressed: false,
       // pathExistsFlag: false, // 'true if a path was found'
       // time: '',
     };
@@ -64,6 +64,7 @@ class App extends React.Component {
   }
 
   handleClickOnBoard(x, y) {
+    console.log(`${x} ${y}`);
     if (this.state.startButtonPressed) {
       this.updateStartLocation(x, y);
     } else if (this.state.endButtonPressed) {
@@ -74,24 +75,33 @@ class App extends React.Component {
   }
 
   toggleAllowedStateOfCell(x, y) {
+    console.log('toggling cell state');
     const { board, } = this.state;
     const boardCopy = copyBoard(board);
     boardCopy[y][x].allowed = !this.state.board[y][x].allowed;
+    console.log('board copy:');
+    console.log(boardCopy);
     this.setState({ board: boardCopy, });
   }
 
   toggleStartSettingFlag() {
-    this.setState({ startButtonPressed: !this.state.startButtonPressed, });
+    this.setState({
+      startButtonPressed: !this.state.startButtonPressed,
+      endButtonPressed: false,
+    });
   }
 
   toggleEndSettingFlag() {
-    this.setState({ endButtonPressed: !this.state.endButtonPressed, });
+    this.setState({
+      endButtonPressed: !this.state.endButtonPressed,
+      startButtonPressed: false,
+    });
   }
 
   findAndDrawPath() {
-    const { startingPoint, endingPoint, board, } = this.state;
+    const { pathStartingPoint, pathEndingPoint, board, } = this.state;
     const boardCopy = copyBoard(board);
-    const path = findPath(boardCopy, startingPoint, endingPoint);
+    const path = findPath(boardCopy, pathStartingPoint, pathEndingPoint);
     const stepCounter = -1;
     this.drawPath(path, stepCounter);
   }
@@ -106,14 +116,14 @@ class App extends React.Component {
 
   updateStartLocation(x, y) {
     this.setState({
-      startingPoint: [ x, y ],
+      pathStartingPoint: [ x, y ],
       startButtonPressed: false,
     });
   }
 
   updateEndLocation(x, y) {
     this.setState(() => ({
-      endingPoint: [ x, y ],
+      pathEndingPoint: [ x, y ],
       endButtonPressed: false,
     }));
   }
