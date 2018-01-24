@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function Instructions(props) {
   const { state, } = props;
-  const buildInstructionArray = (appState) => {
+  function buildInstructionArray(appState) {
     const instructionList = [];
     const {
       pathStartingPoint,
@@ -41,15 +41,17 @@ export default function Instructions(props) {
       instructionList.push(gameInstructions.chooseReferencePoint);
       instructionList.push(gameInstructions.goBackToToggleTileMode);
     }
-    const buildInstructionElements = (arr, instruction, index) => {
+
+    function buildInstructionElements(arr, instruction, index) {
       if (index > 0) {
         arr.push(<h6 key={ `connector${index}` }>OR</h6>);
       }
       arr.push(<h2 key={ `instruction${index}` }>{instruction}</h2>);
       return arr;
-    };
+    }
+
     return instructionList.reduce(buildInstructionElements, []);
-  };
+  }
 
   const currentInstructions = buildInstructionArray(state);
   return (
