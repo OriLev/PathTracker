@@ -1,4 +1,3 @@
-/node_modules
-/dist
-/app/utils/BFS.js
-
+node_modules
+dist
+app/utils/BFS.js

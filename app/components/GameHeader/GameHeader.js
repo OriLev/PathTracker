@@ -1,13 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Instructions from '../Instructions/Instructions';
 
-const { Link, } = require('react-router-dom');
-
-export default function GameHeader(props) {
+export default function GameHeader({ state, }) {
   const settingsText = '<-- Settings';
+  const {
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  } = state;
+  const instructionsState = {
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  };
+  const instructionsProps = { state: instructionsState, };
   return (
-    <div className="instructionsContainer">
+    <div className="gameHeader">
       <Link
+        href="/"
         className="settingsLink"
         to={ {
           pathname: '/',
@@ -15,7 +29,13 @@ export default function GameHeader(props) {
       >
         {settingsText}
       </Link>
-      <h1 className="instructions"> instructions to be here </h1>
+      <div className="instructionsWrapper">
+        <Instructions { ...instructionsProps } />
+      </div>
     </div>
   );
 }
+
+GameHeader.propTypes = {
+  state: PropTypes.object.isRequired,
+};

@@ -4,32 +4,44 @@ import ButtonGroup from '../ButtonGroup/ButtonGroup';
 
 export default function GameButtonsPanel(props) {
   const {
-    startingPoint, endingPoint, startButtonPressed, endButtonPressed,
-  } = props.state;
-  const checkIfDisabled = (location) => {
+    state,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+  } = props;
+  const {
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  } = state;
+  const isStartOrEndButtonDisabled = (location) => {
     if (location.length > 0) {
       return true;
     }
     return false;
   };
+  const isGoButtonDisabled = (locationOfStart, locationOfEnd) => (
+    !isStartOrEndButtonDisabled(locationOfStart) || !isStartOrEndButtonDisabled(locationOfEnd)
+  );
   const buttons = [
     {
-      text: 'Start',
+      text: 'START',
       classes: `btn${startButtonPressed ? ' pressed' : ''}`,
-      disabled: checkIfDisabled(startingPoint),
-      onClick: props.handleClickOnButtons.toggleStartSettingFlag,
+      disabled: isStartOrEndButtonDisabled(pathStartingPoint),
+      onClick: toggleStartButtonPressed,
     },
     {
-      text: 'End',
+      text: 'END',
       classes: `btn${endButtonPressed ? ' pressed' : ''}`,
-      disabled: checkIfDisabled(endingPoint),
-      onClick: props.handleClickOnButtons.toggleEndSettingFlag,
+      disabled: isStartOrEndButtonDisabled(pathEndingPoint),
+      onClick: toggleEndButtonPressed,
     },
     {
-      text: 'Go!',
+      text: 'GO!',
       classes: 'btn success',
-      disabled: (!checkIfDisabled(startingPoint) || !checkIfDisabled(endingPoint)),
-      onClick: props.handleClickOnButtons.findAndDrawPath,
+      disabled: isGoButtonDisabled(pathStartingPoint, pathEndingPoint),
+      onClick: findAndDrawPath,
     },
   ];
   console.log('buttons ok');
@@ -42,3 +54,10 @@ export default function GameButtonsPanel(props) {
     </div>
   );
 }
+
+GameButtonsPanel.propTypes = {
+  state: PropTypes.object.isRequired,
+  toggleStartButtonPressed: PropTypes.func.isRequired,
+  toggleEndButtonPressed: PropTypes.func.isRequired,
+  findAndDrawPath: PropTypes.func.isRequired,
+};

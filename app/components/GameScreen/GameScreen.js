@@ -4,27 +4,59 @@ import Board from '../Board/Board';
 import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 
-export default function GameScreen(props) {
-  props = props.props;
+export default function GameScreen({ state, handleClicks, }) {
   console.log('in gameScreen');
-  console.log(props);
-  const { board, } = props.state;
+  const {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    handleClickOnBoard,
+  } = handleClicks;
+  const {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  } = state;
+  const buttonState = {
+    pathStartingPoint,
+    pathEndingPoint,
+    startButtonPressed,
+    endButtonPressed,
+  };
+  const boardState = {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
+  };
+  const buttonPanelProps = {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    state: buttonState,
+  };
+  const boardProps = {
+    handleClickOnBoard,
+    state: boardState,
+  };
   return (
     <div className="gameScreen">
       <div className="boardContainer">
-        <Board
-          state={ props.state }
-          handleClickOnBoard={ props.handleClicks.handleClickOnBoard }
-        />
+        <Board { ...boardProps } />
       </div>
-      <GameButtonsPanel
-        state={ props.state }
-        handleClickOnButtons={ {
-          toggleStartSettingFlag: props.handleClicks.toggleStartSettingFlag,
-          toggleEndSettingFlag: props.handleClicks.toggleEndSettingFlag,
-          findAndDrawPath: props.handleClicks.findAndDrawPath,
-        } }
-      />
+      <GameButtonsPanel { ...buttonPanelProps } />
     </div>
   );
 }
+
+GameScreen.propTypes = {
+  state: PropTypes.object.isRequired,
+  handleClicks: PropTypes.object.isRequired,
+};

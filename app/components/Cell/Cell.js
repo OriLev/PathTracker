@@ -1,39 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Cell(props) {
-  // console.log('props Cell:')
-  // console.log(props)
-
-  const { x, y, } = props.cellData;
-  props = props.props;
+export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
+  const { x, y, } = cellIndex;
   const {
-    board, colorA, colorB, colorC, startingPoint, endingPoint,
-  } = props.state;
-  const lengthY = board.length;
-  // const styles = {
-  // 	cell: {
-  // 		backgroundColor:
-  // 	}
-  // }
+    colorA,
+    colorB,
+    colorC,
+    cellSideLength,
+    cell,
+    pathStartingPoint,
+    pathEndingPoint,
+  } = state;
+  function getCellColor(currentCell) {
+    if (currentCell.numberOfStepInPath >= 0) {
+      return colorC;
+    }
+    if (!currentCell.isAllowedToBeSteppedOn) {
+      return colorB;
+    }
+    return colorA;
+  }
+
+  const cellStyle = {
+    backgroundColor: getCellColor(cell),
+  };
+  const cellProps = {
+    className: 'cell',
+    style: cellStyle,
+    onClick: e => handleClickOnBoard(x, y, e),
+  };
+  const cellShellStyle = {
+    height: `${cellSideLength}vh`,
+    width: `${cellSideLength}vh`,
+  };
+  const cellShellProps = {
+    className: 'cellShell',
+    style: cellShellStyle,
+  };
 
   return (
-    <div
-      className="cellShell"
-      style={ { height: `${40 / lengthY}vh`, width: `${40 / lengthY}vh`, } }
-    >
-      <div
-        className="cell"
-        style={ {
-backgroundColor:
-											(board[y][x].stepVisited >= 0) ? colorC : (board[y][x].allowed ? colorA : colorB),
-
-        } }
-        onClick={ props.handleClickOnBoard.bind(null, x, y) }
-      >
-        {(startingPoint[0] === x) && (startingPoint[1] === y) && <div>start</div>}
-        {(endingPoint[0] === x) && (endingPoint[1] === y) && <div>end</div>}
+    <div { ...cellShellProps } >
+      <div { ...cellProps } >
+        {(pathStartingPoint[0] === x) && (pathStartingPoint[1] === y) && <div>start</div>}
+        {(pathEndingPoint[0] === x) && (pathEndingPoint[1] === y) && <div>end</div>}
       </div>
     </div>
   );
 }
+
+Cell.propTypes = {
+  state: PropTypes.object.isRequired,
+  cellIndex: PropTypes.object.isRequired,
+  handleClickOnBoard: PropTypes.func.isRequired,
+};
