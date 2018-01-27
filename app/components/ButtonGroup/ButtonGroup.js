@@ -9,13 +9,15 @@ export default function ButtonGroup({ buttons, }) {
   return (
     <div className="buttonGroup">
       {
-        buttons.map((button, index) => {
-          const {
+        buttons.map((
+          {
             text,
             classes,
             disabled,
             onClick,
-          } = button;
+          },
+          index,
+        ) => {
           const buttonProps = {
             type: 'button',
             key: `button${index}`,
@@ -23,11 +25,10 @@ export default function ButtonGroup({ buttons, }) {
             style,
             onClick,
             disabled,
+            children: text,
           };
           return (
-            <button { ...buttonProps }>
-              {text}
-            </button>
+            <button { ...buttonProps } />
           );
         })
       }

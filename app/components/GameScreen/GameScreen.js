@@ -4,15 +4,8 @@ import Board from '../Board/Board';
 import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 
-export default function GameScreen({ state, handleClicks, }) {
-  console.log('in gameScreen');
-  const {
-    toggleStartButtonPressed,
-    toggleEndButtonPressed,
-    findAndDrawPath,
-    handleClickOnBoard,
-  } = handleClicks;
-  const {
+export default function GameScreen({
+  state: {
     colorA,
     colorB,
     colorC,
@@ -21,7 +14,15 @@ export default function GameScreen({ state, handleClicks, }) {
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
+  },
+  handleClicks: {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    handleClickOnBoard,
+  },
+}) {
+  console.log('in gameScreen');
   const buttonState = {
     pathStartingPoint,
     pathEndingPoint,

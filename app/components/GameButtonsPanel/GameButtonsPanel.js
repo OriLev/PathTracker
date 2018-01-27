@@ -15,25 +15,21 @@ export default function GameButtonsPanel(props) {
     startButtonPressed,
     endButtonPressed,
   } = state;
-  const isStartOrEndButtonDisabled = (location) => {
-    if (location.length > 0) {
-      return true;
-    }
-    return false;
-  };
+  const isStartOrEndButtonDisabled = location => location.length > 0;
   const isGoButtonDisabled = (locationOfStart, locationOfEnd) => (
     !isStartOrEndButtonDisabled(locationOfStart) || !isStartOrEndButtonDisabled(locationOfEnd)
   );
+  const getButtonClasses = isButtonPressed => `btn${isButtonPressed ? ' pressed' : ''}`;
   const buttons = [
     {
       text: 'START',
-      classes: `btn${startButtonPressed ? ' pressed' : ''}`,
+      classes: getButtonClasses(startButtonPressed),
       disabled: isStartOrEndButtonDisabled(pathStartingPoint),
       onClick: toggleStartButtonPressed,
     },
     {
       text: 'END',
-      classes: `btn${endButtonPressed ? ' pressed' : ''}`,
+      classes: getButtonClasses(endButtonPressed),
       disabled: isStartOrEndButtonDisabled(pathEndingPoint),
       onClick: toggleEndButtonPressed,
     },
@@ -48,9 +44,7 @@ export default function GameButtonsPanel(props) {
 
   return (
     <div className="buttonsPanel">
-      <ButtonGroup
-        buttons={ buttons }
-      />
+      <ButtonGroup { ...{ buttons, } } />
     </div>
   );
 }

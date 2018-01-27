@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import Instructions from '../Instructions/Instructions';
 
-export default function GameHeader({ state, }) {
-  const settingsText = '<-- Settings';
-  const {
+export default function GameHeader({
+  state: {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
+  },
+}) {
+  const settingsText = '<-- Settings';
   const instructionsState = {
     pathStartingPoint,
     pathEndingPoint,
@@ -18,17 +19,15 @@ export default function GameHeader({ state, }) {
     endButtonPressed,
   };
   const instructionsProps = { state: instructionsState, };
+  const linkProps = {
+    href: '/',
+    className: 'settingsLink',
+    to: { pathname: '/', },
+    children: settingsText,
+  };
   return (
     <div className="gameHeader">
-      <Link
-        href="/"
-        className="settingsLink"
-        to={ {
-          pathname: '/',
-        } }
-      >
-        {settingsText}
-      </Link>
+      <Link { ...linkProps } />
       <div className="instructionsWrapper">
         <Instructions { ...instructionsProps } />
       </div>

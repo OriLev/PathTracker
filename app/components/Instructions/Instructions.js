@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Instructions({ state, }) {
-  function buildInstructionArray(appState) {
+  function createInstructionArray(appState) {
     const instructionList = [];
     const {
       pathStartingPoint,
@@ -10,49 +10,47 @@ export default function Instructions({ state, }) {
       startButtonPressed,
       endButtonPressed,
     } = appState;
-    const setGoBackText = buttonText => (
+    const getGoBackText = buttonText => (
       `Press on the "${buttonText}" button in order to go back to toggle mode`
     );
-    const setReferencePoint = buttonText => (
+    const getReferencePoint = buttonText => (
       `Press on a tile to set it as the "${buttonText}" of the path`
     );
-    const gameInstructions = {
-      toggleTile: 'Press on tiles to toggle tile availability',
-      goToChooseStartMode: 'Press the "START" button to set the starting point',
-      goToChooseEndMode: 'Press the "END" button to set the ending point',
-      chooseReferencePoint: setReferencePoint(startButtonPressed ? 'Start' : 'End'),
-      goBackToToggleTileMode: setGoBackText(startButtonPressed ? 'START' : 'END'),
-      findAndDrawPath: 'Press the "GO!" button to draw path',
-    };
+    const toggleTile = 'Press on tiles to toggle tile availability';
+    const goToChooseStartMode = 'Press the "START" button to set the starting point';
+    const goToChooseEndMode = 'Press the "END" button to set the ending point';
+    const chooseReferencePoint = getReferencePoint(startButtonPressed ? 'Start' : 'End');
+    const goBackToToggleTileMode = getGoBackText(startButtonPressed ? 'START' : 'END');
+    const findAndDrawPath = 'Press the "GO!" button to draw path';
     if (!startButtonPressed && !endButtonPressed) {
-      instructionList.push(gameInstructions.toggleTile);
+      instructionList.push(toggleTile);
       if (pathStartingPoint.length === 0) {
-        instructionList.push(gameInstructions.goToChooseStartMode);
+        instructionList.push(goToChooseStartMode);
       }
       if (pathEndingPoint.length === 0) {
-        instructionList.push(gameInstructions.goToChooseEndMode);
+        instructionList.push(goToChooseEndMode);
       }
       if (pathStartingPoint.length !== 0 && pathEndingPoint.length !== 0) {
-        instructionList.push(gameInstructions.findAndDrawPath);
+        instructionList.push(findAndDrawPath);
       }
     }
     if (startButtonPressed || endButtonPressed) {
-      instructionList.push(gameInstructions.chooseReferencePoint);
-      instructionList.push(gameInstructions.goBackToToggleTileMode);
+      instructionList.push(chooseReferencePoint);
+      instructionList.push(goBackToToggleTileMode);
     }
 
-    function buildInstructionElements(arr, instruction, index) {
+    function createInstructionElements(arrayOfInstructionElements, instruction, index) {
       if (index > 0) {
-        arr.push(<h6 key={ `connector${index}` }>OR</h6>);
+        arrayOfInstructionElements.push(<h6 key={ `connector${index}` }>OR</h6>);
       }
-      arr.push(<h2 key={ `instruction${index}` }>{instruction}</h2>);
-      return arr;
+      arrayOfInstructionElements.push(<h2 key={ `instruction${index}` }>{instruction}</h2>);
+      return arrayOfInstructionElements;
     }
 
-    return instructionList.reduce(buildInstructionElements, []);
+    return instructionList.reduce(createInstructionElements, []);
   }
 
-  const currentInstructions = buildInstructionArray(state);
+  const currentInstructions = createInstructionArray(state);
   return (
     <div>
       { currentInstructions }
