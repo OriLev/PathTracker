@@ -7,7 +7,7 @@ import Game from '../Game/Game';
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
-function resetBoard(lengthX, lengthY) {
+function createBoard(lengthX, lengthY) {
   console.log('creating board');
 
   const board = [];
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       colorA,
       colorB,
       colorC,
-      board: resetBoard(lengthX, lengthY),
+      board: createBoard(lengthX, lengthY),
       pathStartingPoint: [],
       pathEndingPoint: [],
       startButtonPressed: false,
