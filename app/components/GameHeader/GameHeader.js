@@ -4,7 +4,7 @@ import { Link, } from 'react-router-dom';
 import Instructions from '../Instructions/Instructions';
 
 export default function GameHeader({
-  state: {
+  gameHeaderState: {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
@@ -18,7 +18,7 @@ export default function GameHeader({
     startButtonPressed,
     endButtonPressed,
   };
-  const instructionsProps = { state: instructionsState, };
+  const instructionsProps = { instructionsState, };
   const linkProps = {
     href: '/',
     className: 'settingsLink',
@@ -36,5 +36,5 @@ export default function GameHeader({
 }
 
 GameHeader.propTypes = {
-  state: PropTypes.object.isRequired,
+  gameHeaderState: PropTypes.object.isRequired,
 };

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from '../Cell/Cell';
 
-export default function Row({ state, indexY, handleClickOnBoard, }) {
-  const {
+export default function Row({
+  rowState: {
     colorA,
     colorB,
     colorC,
@@ -11,7 +11,10 @@ export default function Row({ state, indexY, handleClickOnBoard, }) {
     row,
     pathStartingPoint,
     pathEndingPoint,
-  } = state;
+  },
+  indexY,
+  handleClickOnBoard,
+}) {
   return (
     <div className="row">
       {row.map((cell, indexX) => {
@@ -27,11 +30,11 @@ export default function Row({ state, indexY, handleClickOnBoard, }) {
         // console.log(cell);
         const cellProps = {
           key: `cell${indexY}${indexX}`,
-          cellIndex: {
+          cellCoordinates: {
             x: indexX,
             y: indexY,
           },
-          state: cellState,
+          cellState,
           handleClickOnBoard,
         };
         return (
@@ -43,7 +46,7 @@ export default function Row({ state, indexY, handleClickOnBoard, }) {
 }
 
 Row.propTypes = {
-  state: PropTypes.object.isRequired,
+  rowState: PropTypes.object.isRequired,
   indexY: PropTypes.number.isRequired,
   handleClickOnBoard: PropTypes.func.isRequired,
 };

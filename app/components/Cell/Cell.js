@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Cell({
-  state: {
+  cellState: {
     colorA,
     colorB,
     colorC,
@@ -11,7 +11,7 @@ export default function Cell({
     pathStartingPoint,
     pathEndingPoint,
   },
-  cellIndex: { x, y, },
+  cellCoordinates: { x, y, },
   handleClickOnBoard,
 }) {
   function getCellColor(currentCell) {
@@ -55,7 +55,7 @@ export default function Cell({
 }
 
 Cell.propTypes = {
-  state: PropTypes.object.isRequired,
-  cellIndex: PropTypes.object.isRequired,
+  cellState: PropTypes.object.isRequired,
+  cellCoordinates: PropTypes.object.isRequired,
   handleClickOnBoard: PropTypes.func.isRequired,
 };

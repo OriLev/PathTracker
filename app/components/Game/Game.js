@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import GameHeader from '../GameHeader/GameHeader';
 import GameScreen from '../GameScreen/GameScreen';
 
-export default function Game({ state, handleClicks, }) {
-  const {
+export default function Game({
+  gameState: {
     colorA,
     colorB,
     colorC,
@@ -14,7 +14,10 @@ export default function Game({ state, handleClicks, }) {
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
+    goButtonPressed,
+  },
+  handleClicks,
+}) {
   const gameHeaderState = {
     pathStartingPoint,
     pathEndingPoint,
@@ -30,12 +33,13 @@ export default function Game({ state, handleClicks, }) {
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
+    goButtonPressed,
   };
   const gameScreenProps = {
-    state: gameScreenState,
+    gameScreenState,
     handleClicks,
   };
-  const gameHeaderProps = { state: gameHeaderState, };
+  const gameHeaderProps = { gameHeaderState, };
   return (
     <div className="gameContainer">
       <GameHeader { ...gameHeaderProps } />
@@ -45,6 +49,6 @@ export default function Game({ state, handleClicks, }) {
 }
 
 Game.propTypes = {
-  state: PropTypes.object.isRequired,
+  gameState: PropTypes.object.isRequired,
   handleClicks: PropTypes.object.isRequired,
 };

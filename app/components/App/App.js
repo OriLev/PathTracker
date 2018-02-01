@@ -56,6 +56,7 @@ export default class App extends React.Component {
       pathEndingPoint: [],
       startButtonPressed: false,
       endButtonPressed: false,
+      goButtonPressed: false,
       // pathExistsFlag: false, // 'true if a path was found'
       // time: '',
     };
@@ -122,6 +123,7 @@ export default class App extends React.Component {
 
   @autobind
   findAndDrawPath() {
+    this.setState({ goButtonPressed: true, });
     const { pathStartingPoint, pathEndingPoint, board, } = this.state;
     const boardCopy = cloneBoard(board);
     const findPathParameters = {
@@ -171,6 +173,7 @@ export default class App extends React.Component {
       pathEndingPoint,
       startButtonPressed,
       endButtonPressed,
+      goButtonPressed,
     } = this.state;
     const gameState = {
       colorA,
@@ -181,9 +184,10 @@ export default class App extends React.Component {
       pathEndingPoint,
       startButtonPressed,
       endButtonPressed,
+      goButtonPressed,
     };
     const gameProps = {
-      state: gameState,
+      gameState,
       handleClicks,
     };
     return (

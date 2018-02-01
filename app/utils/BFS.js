@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default function findPath({ field, startPoint, endPoint, }) {
   const path = [];
 

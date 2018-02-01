@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonGroup from '../ButtonGroup/ButtonGroup';
+import ButtonsGroup from '../ButtonsGroup/ButtonsGroup';
 
-export default function GameButtonsPanel(props) {
-  const {
-    state,
-    toggleStartButtonPressed,
-    toggleEndButtonPressed,
-    findAndDrawPath,
-  } = props;
-  const {
+export default function GameButtonsPanel({
+  buttonsState: {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
+    goButtonPressed,
+  },
+  toggleStartButtonPressed,
+  toggleEndButtonPressed,
+  findAndDrawPath,
+}) {
   const isStartOrEndButtonDisabled = location => location.length > 0;
   const isGoButtonDisabled = (locationOfStart, locationOfEnd) => (
-    !isStartOrEndButtonDisabled(locationOfStart) || !isStartOrEndButtonDisabled(locationOfEnd)
+    !isStartOrEndButtonDisabled(locationOfStart) ||
+    !isStartOrEndButtonDisabled(locationOfEnd) ||
+    goButtonPressed
   );
   const getButtonClasses = isButtonPressed => `btn${isButtonPressed ? ' pressed' : ''}`;
   const buttons = [
@@ -44,13 +45,13 @@ export default function GameButtonsPanel(props) {
 
   return (
     <div className="buttonsPanel">
-      <ButtonGroup { ...{ buttons, } } />
+      <ButtonsGroup { ...{ buttons, } } />
     </div>
   );
 }
 
 GameButtonsPanel.propTypes = {
-  state: PropTypes.object.isRequired,
+  buttonsState: PropTypes.object.isRequired,
   toggleStartButtonPressed: PropTypes.func.isRequired,
   toggleEndButtonPressed: PropTypes.func.isRequired,
   findAndDrawPath: PropTypes.func.isRequired,

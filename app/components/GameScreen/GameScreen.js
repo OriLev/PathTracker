@@ -5,7 +5,7 @@ import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 
 export default function GameScreen({
-  state: {
+  gameScreenState: {
     colorA,
     colorB,
     colorC,
@@ -14,6 +14,7 @@ export default function GameScreen({
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
+    goButtonPressed,
   },
   handleClicks: {
     toggleStartButtonPressed,
@@ -23,11 +24,12 @@ export default function GameScreen({
   },
 }) {
   console.log('in gameScreen');
-  const buttonState = {
+  const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
+    goButtonPressed,
   };
   const boardState = {
     colorA,
@@ -41,11 +43,11 @@ export default function GameScreen({
     toggleStartButtonPressed,
     toggleEndButtonPressed,
     findAndDrawPath,
-    state: buttonState,
+    buttonsState,
   };
   const boardProps = {
     handleClickOnBoard,
-    state: boardState,
+    boardState,
   };
   return (
     <div className="gameScreen">
@@ -58,6 +60,6 @@ export default function GameScreen({
 }
 
 GameScreen.propTypes = {
-  state: PropTypes.object.isRequired,
+  gameScreenState: PropTypes.object.isRequired,
   handleClicks: PropTypes.object.isRequired,
 };

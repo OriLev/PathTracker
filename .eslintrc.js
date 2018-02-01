@@ -14,12 +14,12 @@ module.exports = {
         objects: "always",
         imports: "always",
         exports: "always",
-        functions: "always-multiline"
+        functions: "always-multiline",
       }],
-      "react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
-      "react/jsx-curly-spacing": ["error", "always", { "allowMultiline": true }],
+      "react/jsx-filename-extension": ["error", { "extensions": [".js"], }],
+      "react/jsx-curly-spacing": ["error", "always", { "allowMultiline": true, }],
 	  	// enforce spacing inside array brackets
       'array-bracket-spacing': ['error', 'always'],
-      'react/forbid-prop-types': ["off", { forbid: ['any', 'array', 'object'] }],
+      'react/forbid-prop-types': ["off", { forbid: ['any', 'array', 'object'], }],
     },
 };

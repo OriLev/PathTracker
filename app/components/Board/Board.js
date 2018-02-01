@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Row from '../Row/Row';
 
-export default function Board({ state, handleClickOnBoard, }) {
-  const {
+export default function Board({
+  boardState: {
     colorA,
     colorB,
     colorC,
     board,
     pathStartingPoint,
     pathEndingPoint,
-  } = state;
+  },
+  handleClickOnBoard,
+}) {
   return (
     <div className="board">
       {board.map((row, indexY) => {
@@ -27,7 +29,7 @@ export default function Board({ state, handleClickOnBoard, }) {
         const rowProps = {
           key: `row${indexY}`,
           indexY,
-          state: rowState,
+          rowState,
           handleClickOnBoard,
         };
         return (
@@ -39,6 +41,6 @@ export default function Board({ state, handleClickOnBoard, }) {
 }
 
 Board.propTypes = {
-  state: PropTypes.object.isRequired,
+  boardState: PropTypes.object.isRequired,
   handleClickOnBoard: PropTypes.func.isRequired,
 };
