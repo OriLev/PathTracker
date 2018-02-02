@@ -4,6 +4,7 @@ import { autobind, } from 'core-decorators';
 import { BrowserRouter, Route, Switch, } from 'react-router-dom';
 import findPath from '../../utils/BFS';
 import Game from '../Game/Game';
+import SettingsScreen from '../SettingsScreen/SettingsScreen';
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
@@ -157,6 +158,7 @@ export default class App extends React.Component {
       toggleStartButtonPressed,
       toggleEndButtonPressed,
       findAndDrawPath,
+      setBoardColor,
     } = this;
     const handleClicks = {
       handleClickOnBoard,
@@ -190,6 +192,9 @@ export default class App extends React.Component {
       gameState,
       handleClicks,
     };
+    const settingsProps = {
+      setBoardColor,
+    };
     return (
       <BrowserRouter>
         <div className="container">
@@ -199,6 +204,13 @@ export default class App extends React.Component {
               path="/"
               render={ () => (
                 <Game { ...gameProps } />
+                ) }
+            />
+            <Route
+              exact
+              path="/settings"
+              render={ () => (
+                <SettingsScreen { ...settingsProps } />
                 ) }
             />
           </Switch>

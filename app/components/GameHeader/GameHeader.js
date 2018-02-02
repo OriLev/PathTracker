@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, } from 'react-router-dom';
-import Instructions from '../Instructions/Instructions';
+import GameInstructions from '../GameInstructions/GameInstructions';
 
 export default function GameHeader({
   gameHeaderState: {
@@ -20,16 +20,16 @@ export default function GameHeader({
   };
   const instructionsProps = { instructionsState, };
   const linkProps = {
-    href: '/',
+    // href: '/settings',
     className: 'settingsLink',
-    to: { pathname: '/', },
+    to: { pathname: '/settings', },
     children: settingsText,
   };
   return (
-    <div className="gameHeader">
+    <div className="pageHeader">
       <Link { ...linkProps } />
       <div className="instructionsWrapper">
-        <Instructions { ...instructionsProps } />
+        <GameInstructions { ...instructionsProps } />
       </div>
     </div>
   );

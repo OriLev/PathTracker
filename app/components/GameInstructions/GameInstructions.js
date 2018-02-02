@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import InstructionsBox from '../InstructionsBox/InstructionsBox';
 
-export default function Instructions({ instructionsState, }) {
+export default function GameInstructions({ instructionsState, }) {
   function createInstructions(appState) {
     const instructionsList = [];
     const {
@@ -42,25 +43,18 @@ export default function Instructions({ instructionsState, }) {
       addInstruction(goBackToToggleTileMode);
     }
 
-    function createInstructionElements(arrayOfInstructionElements, instruction, index) {
-      if (index > 0) {
-        arrayOfInstructionElements.push(<h6 key={ `connector${index}` }>OR</h6>);
-      }
-      arrayOfInstructionElements.push(<h2 key={ `instruction${index}` }>{instruction}</h2>);
-      return arrayOfInstructionElements;
-    }
-
-    return instructionsList.reduce(createInstructionElements, []);
+    return instructionsList;
   }
 
   const currentInstructions = createInstructions(instructionsState);
+  const instructionsProps = { instructions: currentInstructions, };
   return (
     <div>
-      { currentInstructions }
+      <InstructionsBox { ...instructionsProps } />
     </div>
   );
 }
 
-Instructions.propTypes = {
+GameInstructions.propTypes = {
   instructionsState: PropTypes.object.isRequired,
 };
