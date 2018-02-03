@@ -1,22 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PageHeader from '../PageHeader/PageHeader';
-import SettingsPanel from '../SettingsPanel/SettingsPanel';
-import { Link, } from 'react-router-dom';
+import PageMain from '../PageMain/PageMain';
 
 export default function SettingsScreen({ setBoardColor, }) {
   const headerProps = { instructions: [ 'Please enter the colors of your choice in hex format' ], };
-  const linkProps = {
-    // href: '/settings',
-    className: 'settingsLink',
-    to: { pathname: '/', },
-    children: 'back to game',
+  const mainProps = {
+    setBoardColor,
   };
   return (
     <div className="settingsContainer">
       <PageHeader { ...headerProps } />
-      <Link { ...linkProps } />
-      <SettingsPanel />
+      <PageMain { ...mainProps } />
     </div>
   );
 }

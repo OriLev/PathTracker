@@ -50,7 +50,7 @@ export default function GameScreen({
     boardState,
   };
   return (
-    <div className="gameScreen">
+    <div className="pageMain">
       <div className="boardContainer">
         <Board { ...boardProps } />
       </div>
