@@ -13,6 +13,15 @@ export default class SettingsPanel extends React.Component {
       newColorC: '',
     };
   }
+  componentWillUpdate(nextProps, nextState) {
+    function validateInputIsHexColor(colorKey) {
+      return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey]);
+    }
+    const { state, } = this;
+    const stateKeys = Object.keys(state);
+    const validationArray = stateKeys.map(validateInputIsHexColor);
+    console.log(validationArray);
+  }
   componentWillUnmount() {
     const { setBoardColor, } = this.props;
     const { newColorA, newColorB, newColorC, } = this.state;
