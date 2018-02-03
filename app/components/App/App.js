@@ -37,9 +37,9 @@ export default class App extends React.Component {
         y: 12,
       },
       colors: {
-        A: 'red',
-        B: 'blue',
-        C: 'green',
+        A: '#f00',
+        B: '#00f',
+        C: '#0f0',
       },
     };
   }

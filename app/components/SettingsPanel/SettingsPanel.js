@@ -12,25 +12,42 @@ export default class SettingsPanel extends React.Component {
       newColorB: '',
       newColorC: '',
     };
+    this.stateValidation = {
+      newColorA: { valid: false, default: '#f00', },
+      newColorB: { valid: false, default: '#00f', },
+      newColorC: { valid: false, default: '#0f0', },
+    };
+    this.validationVariables = function () {
+      const { state, stateValidation, } = this;
+      const newColors = Object.keys(state);
+      return { state, stateValidation, newColors, };
+    };
   }
   componentWillUpdate(nextProps, nextState) {
-    function validateInputIsHexColor(colorKey) {
-      return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey]);
+    const { stateValidation, newColors, } = this.validationVariables();
+    const isHexColor = colorKey => (
+      /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey])
+    );
+    function validateInput(colorKey) {
+      stateValidation[colorKey].valid = isHexColor(colorKey);
     }
-    const { state, } = this;
-    const stateKeys = Object.keys(state);
-    const validationArray = stateKeys.map(validateInputIsHexColor);
-    console.log(validationArray);
+    newColors.map(validateInput);
   }
   componentWillUnmount() {
     const { setBoardColor, } = this.props;
-    const { newColorA, newColorB, newColorC, } = this.state;
-    const colors = [
-      { colorLetter: 'A', currentNewColor: newColorA, defaultText: 'red (#f00)', },
-      { colorLetter: 'B', currentNewColor: newColorB, defaultText: 'blue (#00f)', },
-      { colorLetter: 'C', currentNewColor: newColorC, defaultText: 'green (#0f0)', },
-    ];
-    colors.map(color => setBoardColor(`color${color.colorLetter}`, color.currentNewColor));
+    const { state, stateValidation, newColors, } = this.validationVariables();
+    function getColor(color) {
+      if (!stateValidation[color].valid) {
+        return stateValidation[color].default;
+      }
+      return state[color];
+    }
+    function updateBoardColor(color) {
+      const colorLetter = color.slice(-1);
+      const newColorValue = getColor(color);
+      setBoardColor(`color${colorLetter}`, newColorValue);
+    }
+    newColors.map(updateBoardColor);
   }
   @autobind
   updateNewColor(e, colorLetter) {
