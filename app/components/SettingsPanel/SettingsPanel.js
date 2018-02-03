@@ -17,9 +17,9 @@ export default class SettingsPanel extends React.Component {
     const { setBoardColor, } = this.props;
     const { newColorA, newColorB, newColorC, } = this.state;
     const colors = [
-      { colorLetter: 'A', currentNewColor: newColorA, defaultText: 'red (#f00)', },
-      { colorLetter: 'B', currentNewColor: newColorB, defaultText: 'blue (#00f)', },
-      { colorLetter: 'C', currentNewColor: newColorC, defaultText: 'green (#0f0)', },
+      { colorLetter: 'A', currentNewColor: newColorA, },
+      { colorLetter: 'B', currentNewColor: newColorB, },
+      { colorLetter: 'C', currentNewColor: newColorC, },
     ];
     colors.map(color => setBoardColor(`color${color.colorLetter}`, color.currentNewColor));
   }

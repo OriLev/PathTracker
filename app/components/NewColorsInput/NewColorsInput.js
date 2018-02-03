@@ -13,12 +13,13 @@ export default function NewColorsInput({
     { colorLetter: 'B', currentNewColor: B, defaultText: 'blue (#00f)', },
     { colorLetter: 'C', currentNewColor: C, defaultText: 'green (#0f0)', },
   ];
-  function createNewColorInput(color) {
+  function createNewColorInput(color, index) {
     const { colorLetter, currentNewColor, defaultText, } = color;
     const colorInputProps = {
       colorLetter,
       currentNewColor,
       defaultText,
+      key: index,
       onChange(e) {
         return updateNewColor(e, colorLetter);
       },

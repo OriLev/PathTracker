@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import GameHeader from '../GameHeader/GameHeader';
-import GameScreen from '../GameScreen/GameScreen';
+import { Link, } from 'react-router-dom';
+import GameInstructions from '../GameInstructions/GameInstructions';
+import PageHeader from '../PageHeader/PageHeader';
+import PageMain from '../PageMain/PageMain';
+import Board from '../Board/Board';
+import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 export default function Game({
   gameState: {
@@ -16,34 +19,71 @@ export default function Game({
     endButtonPressed,
     goButtonPressed,
   },
-  handleClicks,
+  handleClicks: {
+    handleClickOnBoard,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+  },
 }) {
-  const gameHeaderState = {
+  const instructionsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
   };
-  const gameScreenState = {
-    colorA,
-    colorB,
-    colorC,
-    board,
+  const instructionsProps = { instructionsState, };
+  const instructions = (
+    <div className="instructionsWrapper" key="2">
+      <GameInstructions { ...instructionsProps } />
+    </div>
+  );
+  const settingsText = '<-- Settings';
+  const linkProps = {
+    className: 'settingsLink',
+    to: { pathname: '/settings', },
+    children: settingsText,
+    key: 1,
+  };
+  const settingsLink = <Link { ...linkProps } />;
+  const gameHeaderProps = { children: [ settingsLink, instructions ], };
+  const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
     goButtonPressed,
   };
-  const gameScreenProps = {
-    gameScreenState,
-    handleClicks,
+  const boardState = {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
   };
-  const gameHeaderProps = { gameHeaderState, };
+  const buttonPanelProps = {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    buttonsState,
+    key: 2,
+  };
+  const boardProps = {
+    handleClickOnBoard,
+    boardState,
+  };
+  const BoardContainer = () => (
+    <div className="boardContainer" key="1">
+      <Board { ...boardProps } />
+    </div>
+  );
+  const buttonsPanel = <GameButtonsPanel { ...buttonPanelProps } />;
+  const pageMainProps = { children: [ BoardContainer(), buttonsPanel ], };
   return (
     <div className="gameContainer">
-      <GameHeader { ...gameHeaderProps } />
-      <GameScreen { ...gameScreenProps } />
+      <PageHeader { ...gameHeaderProps } />
+      <PageMain { ...pageMainProps } />
     </div>
   );
 }
