@@ -17,25 +17,21 @@ export default class SettingsPanel extends React.Component {
       newColorB: { valid: false, default: '#00f', },
       newColorC: { valid: false, default: '#0f0', },
     };
-    this.validationVariables = function () {
-      const { state, stateValidation, } = this;
-      const newColors = Object.keys(state);
-      return { state, stateValidation, newColors, };
-    };
+    this.newColorNames = Object.keys(this.state);
   }
   componentWillUpdate(nextProps, nextState) {
-    const { stateValidation, newColors, } = this.validationVariables();
+    const { stateValidation, newColorNames, } = this;
     const isHexColor = colorKey => (
       /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey])
     );
     function validateInput(colorKey) {
       stateValidation[colorKey].valid = isHexColor(colorKey);
     }
-    newColors.map(validateInput);
+    newColorNames.map(validateInput);
   }
   componentWillUnmount() {
     const { setBoardColor, } = this.props;
-    const { state, stateValidation, newColors, } = this.validationVariables();
+    const { state, stateValidation, newColorNames, } = this;
     function getColor(color) {
       if (!stateValidation[color].valid) {
         return stateValidation[color].default;
@@ -47,7 +43,7 @@ export default class SettingsPanel extends React.Component {
       const newColorValue = getColor(color);
       setBoardColor(`color${colorLetter}`, newColorValue);
     }
-    newColors.map(updateBoardColor);
+    newColorNames.map(updateBoardColor);
   }
   @autobind
   updateNewColor(e, colorLetter) {
