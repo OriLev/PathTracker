@@ -13,9 +13,9 @@ export default class SettingsPanel extends React.Component {
       newColorC: '',
     };
     this.stateValidation = {
-      newColorA: { valid: false, default: '#f00', },
-      newColorB: { valid: false, default: '#00f', },
-      newColorC: { valid: false, default: '#0f0', },
+      newColorA: { isValid: false, defaultColor: '#f00', },
+      newColorB: { isValid: false, defaultColor: '#00f', },
+      newColorC: { isValid: false, defaultColor: '#0f0', },
     };
     this.newColorNames = Object.keys(this.state);
   }
@@ -25,16 +25,17 @@ export default class SettingsPanel extends React.Component {
       /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey])
     );
     function validateInput(colorKey) {
-      stateValidation[colorKey].valid = isHexColor(colorKey);
+      stateValidation[colorKey].isValid = isHexColor(colorKey);
     }
     newColorNames.map(validateInput);
   }
   componentWillUnmount() {
     const { setBoardColor, } = this.props;
     const { state, stateValidation, newColorNames, } = this;
+    console.log(stateValidation);
     function getColor(color) {
-      if (!stateValidation[color].valid) {
-        return stateValidation[color].default;
+      if (!stateValidation[color].isValid) {
+        return stateValidation[color].defaultColor;
       }
       return state[color];
     }
@@ -53,16 +54,16 @@ export default class SettingsPanel extends React.Component {
   }
   render() {
     const {
-      newColorA,
-      newColorB,
-      newColorC,
-    } = this.state;
-    const { updateNewColor, } = this;
-    const inputProps = {
-      newColorA,
-      newColorB,
-      newColorC,
+      state: newColors,
       updateNewColor,
+      stateValidation,
+      newColorNames,
+    } = this;
+    const inputProps = {
+      newColors,
+      updateNewColor,
+      stateValidation,
+      newColorNames,
     };
     return (
       <div className="settingsPanel">

@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 export default function ColorInput({
   colorLetter,
-  currentNewColor,
-  defaultText,
+  colorValue,
+  defaultColor,
   onChange,
 }) {
   const inputProps = {
-    placeholder: `Default: ${defaultText}`,
-    value: currentNewColor,
+    placeholder: `Default: ${defaultColor}`,
+    value: colorValue,
     type: 'text',
     id: `newColor${colorLetter}`,
     onChange,
   };
   return (
     <div className="inputWrapper">
-      <label htmlFor={ `newColor${colorLetter}` }>{`color ${colorLetter}:`}
+      <label htmlFor={ `newColor${colorLetter}` }>{`color ${colorLetter}: `}
         <input { ...inputProps } />
       </label>
     </div>
@@ -25,7 +25,7 @@ export default function ColorInput({
 
 ColorInput.propTypes = {
   colorLetter: PropTypes.string.isRequired,
-  currentNewColor: PropTypes.string.isRequired,
-  defaultText: PropTypes.string.isRequired,
+  colorValue: PropTypes.string.isRequired,
+  defaultColor: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
