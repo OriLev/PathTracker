@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { autobind } from 'core-decorators';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { autobind, } from 'core-decorators';
+import { BrowserRouter, Route, Switch, } from 'react-router-dom';
 import findPath from '../../utils/BFS';
 import Game from '../Game/Game';
+import SettingsScreen from '../SettingsScreen/SettingsScreen';
 // const Settings = require('./Settings');
 // const Results = require('./Results');
 
-function resetBoard(lengthX, lengthY) {
+function createBoard(lengthX, lengthY) {
   console.log('creating board');
 
   const board = [];
@@ -28,7 +29,6 @@ function cloneBoard(board) {
   return (board.map(row => (row.map(cell => ({ ...cell, })))));
 }
 
-@autobind
 export default class App extends React.Component {
   static get defaultProps() {
     return {
@@ -45,27 +45,27 @@ export default class App extends React.Component {
   }
   constructor(props) {
     super(props);
-
+    const { colors, dimensions, } = props;
+    const { A: colorA, B: colorB, C: colorC, } = colors;
+    const { x: lengthX, y: lengthY, } = dimensions;
     this.state = {
-      colorA: props.colors.A,
-      colorB: props.colors.B,
-      colorC: props.colors.C,
-      board: resetBoard(props.dimensions.x, props.dimensions.y),
+      colorA,
+      colorB,
+      colorC,
+      board: createBoard(lengthX, lengthY),
       pathStartingPoint: [],
       pathEndingPoint: [],
       startButtonPressed: false,
       endButtonPressed: false,
+      goButtonPressed: false,
       // pathExistsFlag: false, // 'true if a path was found'
       // time: '',
     };
   }
 
-  setBoardColor(updatedColor, newColor) {
-    this.setState(() => {
-      const color = {};
-      color[updatedColor] = newColor;
-      return color;
-    });
+  @autobind
+  setBoardColor(colorName, colorValue) {
+    this.setState({ [colorName]: colorValue, });
   }
 
   setStartLocation(x, y) {
@@ -76,25 +76,27 @@ export default class App extends React.Component {
   }
 
   setEndLocation(x, y) {
-    this.setState(() => ({
+    this.setState({
       pathEndingPoint: [ x, y ],
       endButtonPressed: false,
-    }));
+    });
   }
 
+  @autobind
   handleClickOnBoard(x, y) {
-    if (this.state.startButtonPressed) {
+    const { startButtonPressed, endButtonPressed, } = this.state;
+    if (startButtonPressed) {
       return this.setStartLocation(x, y);
     }
 
-    if (this.state.endButtonPressed) {
+    if (endButtonPressed) {
       return this.setEndLocation(x, y);
     }
 
-    return this.toggleCellAllowedToBeSteppedOn(x, y);
+    return this.toggleIsCellAllowedToBeSteppedOn(x, y);
   }
 
-  toggleCellAllowedToBeSteppedOn(x, y) {
+  toggleIsCellAllowedToBeSteppedOn(x, y) {
     console.log('toggling cell state');
     const { board, } = this.state;
     const boardCopy = cloneBoard(board);
@@ -104,6 +106,7 @@ export default class App extends React.Component {
     this.setState({ board: boardCopy, });
   }
 
+  @autobind
   toggleStartButtonPressed() {
     this.setState({
       startButtonPressed: !this.state.startButtonPressed,
@@ -111,6 +114,7 @@ export default class App extends React.Component {
     });
   }
 
+  @autobind
   toggleEndButtonPressed() {
     this.setState({
       endButtonPressed: !this.state.endButtonPressed,
@@ -118,7 +122,9 @@ export default class App extends React.Component {
     });
   }
 
+  @autobind
   findAndDrawPath() {
+    this.setState({ goButtonPressed: true, });
     const { pathStartingPoint, pathEndingPoint, board, } = this.state;
     const boardCopy = cloneBoard(board);
     const findPathParameters = {
@@ -152,6 +158,7 @@ export default class App extends React.Component {
       toggleStartButtonPressed,
       toggleEndButtonPressed,
       findAndDrawPath,
+      setBoardColor,
     } = this;
     const handleClicks = {
       handleClickOnBoard,
@@ -168,6 +175,7 @@ export default class App extends React.Component {
       pathEndingPoint,
       startButtonPressed,
       endButtonPressed,
+      goButtonPressed,
     } = this.state;
     const gameState = {
       colorA,
@@ -178,10 +186,14 @@ export default class App extends React.Component {
       pathEndingPoint,
       startButtonPressed,
       endButtonPressed,
+      goButtonPressed,
     };
     const gameProps = {
-      state: gameState,
+      gameState,
       handleClicks,
+    };
+    const settingsProps = {
+      setBoardColor,
     };
     return (
       <BrowserRouter>
@@ -192,6 +204,13 @@ export default class App extends React.Component {
               path="/"
               render={ () => (
                 <Game { ...gameProps } />
+                ) }
+            />
+            <Route
+              exact
+              path="/settings"
+              render={ () => (
+                <SettingsScreen { ...settingsProps } />
                 ) }
             />
           </Switch>

@@ -1,100 +1,122 @@
 * {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .cellShell {
-	overflow: hidden;
-	position: relative;
-	border: solid 1px;
+  overflow: hidden;
+  position: relative;
+  border: solid 1px;
 	/*height: 10px;
 	width: 10px;*/
 }
 
 .cell {
 	/*border: solid 1px;*/
-	height: 100%;
-	width: 100%;
-	font-size: 50%;
+  height: 100%;
+  width: 100%;
+  font-size: 50%;
 }
 
 .cell:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .cell:active {
-	position: absolute;
-	border: solid 4px;
+  position: absolute;
+  border: solid 4px;
 }
 
-.gameHeader {
-	height: 20vh;
-	background-color: gray;
+.pageHeader {
+  height: 20vh;
+  background-color: gray;
 }
 
 .instructionsWrapper {
-	display: flex;
-	height: 100%;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .instructions {
-	text-align: center;
-	max-width: 70%;
-	margin: 0 auto;
+  text-align: center;
+  max-width: 70%;
+  margin: 0 auto;
 }
 
 .settingsLink {
-	text-decoration: none;
-	position: absolute;
+  text-decoration: none;
+  position: absolute;
 }
 
-.gameScreen {
-	border-top: solid 2px darkGray;
-	height: 80vh;
-	display: flex;
-	flex-direction: row;
+.pageMain {
+  border-top: solid 2px darkGray;
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  align-items:  center; 
+  justify-content:  space-around; 
 }
 
 .boardContainer {
-	flex-basis: 80%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  flex-basis: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .board {
-	height: 40vh;
+  height: 40vh;
 	/*width: 33vh;*/
 }
 
+.settingsPanel {
+  height: 50%;
+}
+
+.colorInputsWrapper {
+  height: 80%;
+}
+
+.submitButtonWrapper {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.inputWrapper {
+  height: 33.3%;
+}
+
 .buttonsPanel {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-basis: 20%;
-	background-color: darkGray;
-	border-left: solid 2px gray;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 20%;
+  background-color: darkGray;
+  border-left: solid 2px gray;
 }
 
 .buttonGroup {
-	flex-basis: 50%;
-	height: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items:stretch;
-	align-content: stretch;
-	border: solid 2px black;
-	border-radius: 5px;
-	overflow: hidden;
+  flex-basis: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items:stretch;
+  align-content: stretch;
+  border: solid 2px black;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .btn:active::before { 
@@ -102,6 +124,7 @@
 }
 
 .btn, .success{
+  text-decoration: none;
 	color: white;
 }
 

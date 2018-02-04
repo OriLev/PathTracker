@@ -4,15 +4,8 @@ import Board from '../Board/Board';
 import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 
-export default function GameScreen({ state, handleClicks, }) {
-  console.log('in gameScreen');
-  const {
-    toggleStartButtonPressed,
-    toggleEndButtonPressed,
-    findAndDrawPath,
-    handleClickOnBoard,
-  } = handleClicks;
-  const {
+export default function GameScreen({
+  gameScreenState: {
     colorA,
     colorB,
     colorC,
@@ -21,12 +14,22 @@ export default function GameScreen({ state, handleClicks, }) {
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
-  const buttonState = {
+    goButtonPressed,
+  },
+  handleClicks: {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    handleClickOnBoard,
+  },
+}) {
+  console.log('in gameScreen');
+  const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
+    goButtonPressed,
   };
   const boardState = {
     colorA,
@@ -40,14 +43,14 @@ export default function GameScreen({ state, handleClicks, }) {
     toggleStartButtonPressed,
     toggleEndButtonPressed,
     findAndDrawPath,
-    state: buttonState,
+    buttonsState,
   };
   const boardProps = {
     handleClickOnBoard,
-    state: boardState,
+    boardState,
   };
   return (
-    <div className="gameScreen">
+    <div className="pageMain">
       <div className="boardContainer">
         <Board { ...boardProps } />
       </div>
@@ -57,6 +60,6 @@ export default function GameScreen({ state, handleClicks, }) {
 }
 
 GameScreen.propTypes = {
-  state: PropTypes.object.isRequired,
+  gameScreenState: PropTypes.object.isRequired,
   handleClicks: PropTypes.object.isRequired,
 };

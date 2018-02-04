@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
-  const { x, y, } = cellIndex;
-  const {
+export default function Cell({
+  cellState: {
     colorA,
     colorB,
     colorC,
@@ -11,12 +10,16 @@ export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
     cell,
     pathStartingPoint,
     pathEndingPoint,
-  } = state;
+  },
+  cellCoordinates: { x, y, },
+  handleClickOnBoard,
+}) {
   function getCellColor(currentCell) {
-    if (currentCell.numberOfStepInPath >= 0) {
+    const { numberOfStepInPath, isAllowedToBeSteppedOn, } = currentCell;
+    if (numberOfStepInPath >= 0) {
       return colorC;
     }
-    if (!currentCell.isAllowedToBeSteppedOn) {
+    if (!isAllowedToBeSteppedOn) {
       return colorB;
     }
     return colorA;
@@ -28,7 +31,9 @@ export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
   const cellProps = {
     className: 'cell',
     style: cellStyle,
-    onClick: e => handleClickOnBoard(x, y, e),
+    onClick(e) {
+      handleClickOnBoard(x, y, e);
+    },
   };
   const cellShellStyle = {
     height: `${cellSideLength}vh`,
@@ -50,7 +55,7 @@ export default function Cell({ state, cellIndex, handleClickOnBoard, }) {
 }
 
 Cell.propTypes = {
-  state: PropTypes.object.isRequired,
-  cellIndex: PropTypes.object.isRequired,
+  cellState: PropTypes.object.isRequired,
+  cellCoordinates: PropTypes.object.isRequired,
   handleClickOnBoard: PropTypes.func.isRequired,
 };

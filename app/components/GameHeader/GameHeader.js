@@ -1,41 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Instructions from '../Instructions/Instructions';
+import { Link, } from 'react-router-dom';
+import GameInstructions from '../GameInstructions/GameInstructions';
 
-export default function GameHeader({ state, }) {
-  const settingsText = '<-- Settings';
-  const {
+export default function GameHeader({
+  gameHeaderState: {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
-  } = state;
+  },
+}) {
+  const settingsText = '<-- Settings';
   const instructionsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
   };
-  const instructionsProps = { state: instructionsState, };
+  const instructionsProps = { instructionsState, };
+  const linkProps = {
+    // href: '/settings',
+    className: 'settingsLink',
+    to: { pathname: '/settings', },
+    children: settingsText,
+  };
   return (
-    <div className="gameHeader">
-      <Link
-        href="/"
-        className="settingsLink"
-        to={ {
-          pathname: '/',
-        } }
-      >
-        {settingsText}
-      </Link>
+    <div className="pageHeader">
+      <Link { ...linkProps } />
       <div className="instructionsWrapper">
-        <Instructions { ...instructionsProps } />
+        <GameInstructions { ...instructionsProps } />
       </div>
     </div>
   );
 }
 
 GameHeader.propTypes = {
-  state: PropTypes.object.isRequired,
+  gameHeaderState: PropTypes.object.isRequired,
 };
