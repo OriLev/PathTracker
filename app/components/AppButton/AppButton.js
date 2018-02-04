@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function AppButton({ button, style, index, }) {
+export default function AppButton({ button, style, }) {
   const {
     text,
     classes,
@@ -10,7 +10,6 @@ export default function AppButton({ button, style, index, }) {
   } = button;
   const buttonProps = {
     type: 'button',
-    key: `button${index}`,
     className: classes,
     style,
     onClick,
@@ -28,5 +27,4 @@ AppButton.propTypes = {
     onClick: PropTypes.func,
   }).isRequired,
   style: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
 };

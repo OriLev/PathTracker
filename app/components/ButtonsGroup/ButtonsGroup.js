@@ -10,6 +10,7 @@ export default function ButtonsGroup({ buttons, }) {
     <div className="buttonGroup">
       { buttons.map((button, index) => {
         const buttonProps = {
+          key: `button${index}`,
           style,
           button,
           index,
