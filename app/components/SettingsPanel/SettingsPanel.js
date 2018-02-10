@@ -25,9 +25,7 @@ export default class SettingsPanel extends React.Component {
   }
   @autobind
   updateNewColor(e, colorLetter) {
-    const colorUpdate = {};
-    colorUpdate[`newColor${colorLetter}`] = e.target.value;
-    this.setState(colorUpdate);
+    this.setState({ [`newColor${colorLetter}`]: e.target.value, });
   }
   render() {
     const {
