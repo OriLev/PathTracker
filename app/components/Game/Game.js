@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import GameHeader from '../GameHeader/GameHeader';
-import GameScreen from '../GameScreen/GameScreen';
+import { Link, } from 'react-router-dom';
+import GameInstructions from '../GameInstructions/GameInstructions';
+import HeaderSection from '../HeaderSection/HeaderSection';
+import MainSection from '../MainSection/MainSection';
+import Board from '../Board/Board';
+import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
 export default function Game({
   gameState: {
@@ -16,34 +19,64 @@ export default function Game({
     endButtonPressed,
     goButtonPressed,
   },
-  handleClicks,
+  handleClicks: {
+    handleClickOnBoard,
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+  },
 }) {
-  const gameHeaderState = {
+  const instructionsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
   };
-  const gameScreenState = {
-    colorA,
-    colorB,
-    colorC,
-    board,
+  const settingsLinkProps = {
+    className: 'settingsLink',
+    to: { pathname: '/settings', },
+  };
+  const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
     startButtonPressed,
     endButtonPressed,
     goButtonPressed,
   };
-  const gameScreenProps = {
-    gameScreenState,
-    handleClicks,
+  const boardState = {
+    colorA,
+    colorB,
+    colorC,
+    board,
+    pathStartingPoint,
+    pathEndingPoint,
   };
-  const gameHeaderProps = { gameHeaderState, };
+  const buttonPanelProps = {
+    toggleStartButtonPressed,
+    toggleEndButtonPressed,
+    findAndDrawPath,
+    buttonsState,
+  };
+  const boardProps = {
+    handleClickOnBoard,
+    boardState,
+  };
   return (
     <div className="gameContainer">
-      <GameHeader { ...gameHeaderProps } />
-      <GameScreen { ...gameScreenProps } />
+      <HeaderSection>
+        <Link { ...settingsLinkProps }>
+          {'<-- Settings'}
+        </Link>
+        <div className="instructionsWrapper" key="2">
+          <GameInstructions instructionsState={ instructionsState } />
+        </div>
+      </HeaderSection>
+      <MainSection>
+        <div className="boardContainer" >
+          <Board { ...boardProps } />
+        </div>
+        <GameButtonsPanel { ...buttonPanelProps } />
+      </MainSection>
     </div>
   );
 }

@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PageHeader from '../PageHeader/PageHeader';
-import PageMain from '../PageMain/PageMain';
+import HeaderSection from '../HeaderSection/HeaderSection';
+import MainSection from '../MainSection/MainSection';
+import SettingsPanel from '../SettingsPanel/SettingsPanel';
+import InstructionsBox from '../InstructionsBox/InstructionsBox';
 
 export default function SettingsScreen({ setBoardColor, }) {
-  const headerProps = { instructions: [ 'Please enter the colors of your choice in hex format' ], };
-  const mainProps = {
-    setBoardColor,
-  };
   return (
     <div className="settingsContainer">
-      <PageHeader { ...headerProps } />
-      <PageMain { ...mainProps } />
+      <HeaderSection>
+        <div className="instructionsWrapper" >
+          <InstructionsBox instructions={ [ 'Enter the colors of your choice in hex format' ] } />
+        </div>
+      </HeaderSection>
+      <MainSection>
+        <SettingsPanel setBoardColor={ setBoardColor } />
+      </MainSection>
     </div>
   );
 }
