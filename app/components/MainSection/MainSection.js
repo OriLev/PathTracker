@@ -10,6 +10,9 @@ export default function MainSection({ children, }) {
   );
 }
 
-PageMain.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+MainSection.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]).isRequired,
 };

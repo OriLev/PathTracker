@@ -9,6 +9,9 @@ export default function HeaderSection({ children, }) {
   );
 }
 
-PageHeader.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+HeaderSection.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]).isRequired,
 };
