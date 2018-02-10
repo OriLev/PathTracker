@@ -32,20 +32,10 @@ export default function Game({
     startButtonPressed,
     endButtonPressed,
   };
-  const instructionsProps = { instructionsState, };
-  const Instructions = (
-    <div className="instructionsWrapper" key="2">
-      <GameInstructions { ...instructionsProps } />
-    </div>
-  );
   const settingsLinkProps = {
     className: 'settingsLink',
     to: { pathname: '/settings', },
-    children: '<-- Settings',
-    key: 1,
   };
-  const SettingsLink = <Link { ...settingsLinkProps } />;
-  const gameHeaderProps = { children: [ SettingsLink, Instructions ], };
   const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
@@ -73,7 +63,14 @@ export default function Game({
   };
   return (
     <div className="gameContainer">
-      <HeaderSection { ...gameHeaderProps } />
+      <HeaderSection>
+        <Link { ...settingsLinkProps }>
+          {'<-- Settings'}
+        </Link>
+        <div className="instructionsWrapper" key="2">
+          <GameInstructions instructionsState={ instructionsState } />
+        </div>
+      </HeaderSection>
       <MainSection>
         <div className="boardContainer" >
           <Board { ...boardProps } />
