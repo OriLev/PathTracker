@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, } from 'react-router-dom';
 import GameInstructions from '../GameInstructions/GameInstructions';
-import PageHeader from '../PageHeader/PageHeader';
-import PageMain from '../PageMain/PageMain';
+import HeaderSection from '../HeaderSection/HeaderSection';
+import MainSection from '../MainSection/MainSection';
 import Board from '../Board/Board';
 import GameButtonsPanel from '../GameButtonsPanel/GameButtonsPanel';
 
@@ -33,20 +33,19 @@ export default function Game({
     endButtonPressed,
   };
   const instructionsProps = { instructionsState, };
-  const instructions = (
+  const Instructions = (
     <div className="instructionsWrapper" key="2">
       <GameInstructions { ...instructionsProps } />
     </div>
   );
-  const settingsText = '<-- Settings';
-  const linkProps = {
+  const settingsLinkProps = {
     className: 'settingsLink',
     to: { pathname: '/settings', },
-    children: settingsText,
+    children: '<-- Settings',
     key: 1,
   };
-  const settingsLink = <Link { ...linkProps } />;
-  const gameHeaderProps = { children: [ settingsLink, instructions ], };
+  const SettingsLink = <Link { ...settingsLinkProps } />;
+  const gameHeaderProps = { children: [ SettingsLink, Instructions ], };
   const buttonsState = {
     pathStartingPoint,
     pathEndingPoint,
@@ -67,23 +66,20 @@ export default function Game({
     toggleEndButtonPressed,
     findAndDrawPath,
     buttonsState,
-    key: 2,
   };
   const boardProps = {
     handleClickOnBoard,
     boardState,
   };
-  const BoardContainer = () => (
-    <div className="boardContainer" key="1">
-      <Board { ...boardProps } />
-    </div>
-  );
-  const buttonsPanel = <GameButtonsPanel { ...buttonPanelProps } />;
-  const pageMainProps = { children: [ BoardContainer(), buttonsPanel ], };
   return (
     <div className="gameContainer">
-      <PageHeader { ...gameHeaderProps } />
-      <PageMain { ...pageMainProps } />
+      <HeaderSection { ...gameHeaderProps } />
+      <MainSection>
+        <div className="boardContainer" >
+          <Board { ...boardProps } />
+        </div>
+        <GameButtonsPanel { ...buttonPanelProps } />
+      </MainSection>
     </div>
   );
 }
