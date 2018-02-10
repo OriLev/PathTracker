@@ -11,12 +11,11 @@ export default function ColorInput({
     placeholder: `Default: ${defaultText}`,
     value: currentNewColor,
     type: 'text',
-    id: `newColor${colorLetter}`,
     onChange,
   };
   return (
     <div className="inputWrapper">
-      <label htmlFor={ `newColor${colorLetter}` }>{`color ${colorLetter}:`}
+      <label>{`color ${colorLetter}:`}
         <input { ...inputProps } />
       </label>
     </div>
