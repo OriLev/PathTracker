@@ -5,7 +5,7 @@ export default function SubmitColorsButton() {
   const linkProps = {
     className: 'btn',
     to: { pathname: '/', },
-    children: 'Submit new colors',
+    children: 'USE NEW COLORS',
   };
   return (
     <div className="submitButtonWrapper" >

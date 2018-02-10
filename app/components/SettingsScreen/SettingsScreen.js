@@ -4,7 +4,7 @@ import PageHeader from '../PageHeader/PageHeader';
 import PageMain from '../PageMain/PageMain';
 
 export default function SettingsScreen({ setBoardColor, }) {
-  const headerProps = { instructions: [ 'Please enter the colors of your choice in hex format' ], };
+  const headerProps = { instructions: [ 'Enter the colors of your choice in hex format' ], };
   const mainProps = {
     setBoardColor,
   };
