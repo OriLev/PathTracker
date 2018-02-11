@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ColorInput from '../ColorInput/ColorInput';
-import ColorFeedback from '../ColorFeedback/ColorFeedback';
+// import ColorFeedback from '../ColorFeedback/ColorFeedback';
 
 export default function NewColorsInput({
   newColors,
@@ -18,22 +18,22 @@ export default function NewColorsInput({
     };
   }
   const colors = newColorNames.map(createColors);
-  function getFeedbackText(isValid, defaultColor) {
-    if (isValid) {
-      return 'The input color is valid: ';
-    }
-    return `The input color is invalid. Default color (${defaultColor}) will be used: `;
-  }
-  function getFeedbackStyle(isValid) {
-    if (isValid) {
-      return {
-        color: '#0f0',
-      };
-    }
-    return {
-      color: '#f00',
-    };
-  }
+  // function getFeedbackText(isValid, defaultColor) {
+  //   if (isValid) {
+  //     return 'The input color is valid: ';
+  //   }
+  //   return `The input color is invalid. Default color (${defaultColor}) will be used: `;
+  // }
+  // function getFeedbackStyle(isValid) {
+  //   if (isValid) {
+  //     return {
+  //       color: '#0f0',
+  //     };
+  //   }
+  //   return {
+  //     color: '#f00',
+  //   };
+  // }
   function createNewColorInputContainer(color) {
     const {
       colorName,
@@ -44,25 +44,24 @@ export default function NewColorsInput({
     const colorLetter = colorName.slice(-1);
     const colorInputProps = {
       colorLetter,
-      currentNewColor,
-      defaultText,
-      key: colorLetter,
+      colorValue,
+      defaultColor,
+      isValid,
       onChange(e) {
         return updateNewColor(e, colorLetter);
       },
     };
-    const feedbackText = getFeedbackText(isValid, defaultColor);
-    const feedbackStyle = getFeedbackStyle(isValid);
-    const colorToBeUsed = (isValid) ? colorValue : defaultColor;
-    const colorFeedbackProps = {
-      feedbackText,
-      feedbackStyle,
-      colorToBeUsed,
-    };
+    // const feedbackText = getFeedbackText(isValid, defaultColor);
+    // const feedbackStyle = getFeedbackStyle(isValid);
+    // const colorToBeUsed = (isValid) ? colorValue : defaultColor;
+    // const colorFeedbackProps = {
+    //   feedbackText,
+    //   feedbackStyle,
+    //   colorToBeUsed,
+    // };<ColorFeedback { ...colorFeedbackProps } />
     return (
-      <div className="inputContainer">
+      <div className="inputContainer" key={ colorLetter } >
         <ColorInput { ...colorInputProps } />
-        <ColorFeedback { ...colorFeedbackProps } />
       </div>
     );
   }

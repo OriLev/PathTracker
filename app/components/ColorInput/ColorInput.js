@@ -8,9 +8,8 @@ export default function ColorInput({
   onChange,
 }) {
   const inputProps = {
-    placeholder: `Default: ${defaultColor}`,
     value: colorValue,
-    type: 'text',
+    type: 'color',
     onChange,
   };
   return (

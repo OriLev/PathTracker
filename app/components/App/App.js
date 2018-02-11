@@ -37,9 +37,9 @@ export default class App extends React.Component {
         y: 12,
       },
       colors: {
-        A: '#f00',
-        B: '#00f',
-        C: '#0f0',
+        A: '#ff0000',
+        B: '#0000ff',
+        C: '#00ff00',
       },
     };
   }
@@ -193,6 +193,9 @@ export default class App extends React.Component {
       handleClicks,
     };
     const settingsProps = {
+      colorA,
+      colorB,
+      colorC,
       setBoardColor,
     };
     return (

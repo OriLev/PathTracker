@@ -7,15 +7,16 @@ import SubmitColorsButton from '../SubmitColorsButton/SubmitColorsButton';
 export default class SettingsPanel extends React.Component {
   constructor(props) {
     super(props);
+    const { colorA, colorB, colorC, } = this.props;
     this.state = {
-      newColorA: '',
-      newColorB: '',
-      newColorC: '',
+      newColorA: colorA,
+      newColorB: colorB,
+      newColorC: colorC,
     };
     this.stateValidation = {
-      newColorA: { isValid: false, defaultColor: '#f00', },
-      newColorB: { isValid: false, defaultColor: '#00f', },
-      newColorC: { isValid: false, defaultColor: '#0f0', },
+      newColorA: { isValid: true, defaultColor: colorA, },
+      newColorB: { isValid: true, defaultColor: colorB, },
+      newColorC: { isValid: true, defaultColor: colorC, },
     };
     this.newColorNames = Object.keys(this.state);
   }
@@ -73,5 +74,8 @@ export default class SettingsPanel extends React.Component {
 }
 
 SettingsPanel.propTypes = {
+  colorA: PropTypes.string.isRequired,
+  colorB: PropTypes.string.isRequired,
+  colorC: PropTypes.string.isRequired,
   setBoardColor: PropTypes.func.isRequired,
 };
