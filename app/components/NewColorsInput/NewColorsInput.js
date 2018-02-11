@@ -44,8 +44,9 @@ export default function NewColorsInput({
     const colorLetter = colorName.slice(-1);
     const colorInputProps = {
       colorLetter,
-      colorValue,
-      defaultColor,
+      currentNewColor,
+      defaultText,
+      key: colorLetter,
       onChange(e) {
         return updateNewColor(e, colorLetter);
       },

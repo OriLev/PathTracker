@@ -19,7 +19,14 @@ module.exports = {
       "react/jsx-filename-extension": ["error", { "extensions": [".js"], }],
       "react/jsx-curly-spacing": ["error", "always", { "allowMultiline": true, }],
 	  	// enforce spacing inside array brackets
-      'array-bracket-spacing': ['error', 'always'],
+      'array-bracket-spacing': ["error", "always"],
       'react/forbid-prop-types': ["off", { forbid: ['any', 'array', 'object'], }],
+      'jsx-a11y/label-has-for': [ "error", {
+        "components": [ "Label" ],
+        "required": {
+          "every": [ "nesting" ]
+        },
+        "allowChildren": true,
+      }]
     },
 };
