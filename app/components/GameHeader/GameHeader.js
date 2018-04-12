@@ -28,7 +28,7 @@ export default function GameHeader({
   };
   return (
     <div className="pageHeader">
-      <Link { ...linkProps } />
+      {/* <Link { ...linkProps } /> */}
       <input className="resetButton" type="button" value="reset" onClick={ resetBoard } />
       <div className="instructionsWrapper">
         <GameInstructions { ...instructionsProps } />
