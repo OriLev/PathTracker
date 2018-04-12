@@ -9994,7 +9994,11 @@ var App = (_class = function (_React$Component) {
           lengthX = _props$dimensions.x,
           lengthY = _props$dimensions.y;
 
-      this.setState({ board: createBoard(lengthX, lengthY) });
+      this.setState({
+        board: createBoard(lengthX, lengthY),
+        pathStartingPoint: [],
+        pathEndingPoint: []
+      });
     }
   }, {
     key: 'setBoardColor',
