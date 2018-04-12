@@ -211,13 +211,13 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="container">
-          <Switch>
+          {/* <Switch>
             <Route
               exact
               path="/"
-              render={ () => (
+              render={ () => ( */}
                 <Game { ...gameProps } />
-                ) }
+                {/* ) }
             />
             <Route
               exact
@@ -226,7 +226,7 @@ export default class App extends React.Component {
                 <SettingsScreen { ...settingsProps } />
                 ) }
             />
-          </Switch>
+          </Switch> */}
         </div>
       </BrowserRouter>
     );
