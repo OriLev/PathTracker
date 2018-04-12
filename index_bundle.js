@@ -9994,7 +9994,12 @@ var App = (_class = function (_React$Component) {
           lengthX = _props$dimensions.x,
           lengthY = _props$dimensions.y;
 
-      this.setState({ board: createBoard(lengthX, lengthY) });
+      this.setState({
+        board: createBoard(lengthX, lengthY),
+        pathStartingPoint: [],
+        pathEndingPoint: [],
+        goButtonPressed: false
+      });
     }
   }, {
     key: 'setBoardColor',
@@ -10155,15 +10160,31 @@ var App = (_class = function (_React$Component) {
         setBoardColor: setBoardColor
       };
 
-      return (
-        // <BrowserRouter>
+      return _react2.default.createElement(
+        _reactRouterDom.BrowserRouter,
+        { basename: '/PathTracker' },
         _react2.default.createElement(
           'div',
           { className: 'container' },
-          _react2.default.createElement(_Game2.default, gameProps)
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, {
+              exact: true,
+              path: '/',
+              render: function render() {
+                return _react2.default.createElement(_Game2.default, gameProps);
+              }
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, {
+              exact: true,
+              path: '/settings',
+              render: function render() {
+                return _react2.default.createElement(_SettingsScreen2.default, settingsProps);
+              }
+            })
+          )
         )
-        // </BrowserRouter>
-
       );
     }
   }]);
@@ -16035,7 +16056,6 @@ function GameHeader(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'pageHeader' },
-    _react2.default.createElement(_reactRouterDom.Link, linkProps),
     _react2.default.createElement('input', { className: 'resetButton', type: 'button', value: 'reset', onClick: resetBoard }),
     _react2.default.createElement(
       'div',
