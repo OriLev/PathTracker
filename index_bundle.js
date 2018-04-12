@@ -9997,7 +9997,8 @@ var App = (_class = function (_React$Component) {
       this.setState({
         board: createBoard(lengthX, lengthY),
         pathStartingPoint: [],
-        pathEndingPoint: []
+        pathEndingPoint: [],
+        goButtonPressed: false
       });
     }
   }, {
