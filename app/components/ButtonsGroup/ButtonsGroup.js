@@ -1,21 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppButton from '../AppButton/AppButton';
 
 export default function ButtonsGroup({ buttons, }) {
   const style = {
     height: `${100 / buttons.length}%`,
   };
+  function createButton(buttonObject, index) {
+    const {
+      text,
+      classes,
+      disabled,
+      onClick,
+    } = buttonObject;
+    const buttonProps = {
+      type: 'button',
+      key: `button${index}`,
+      className: classes,
+      style,
+      onClick,
+      disabled,
+      children: text,
+    };
+    return <button { ...buttonProps } />;
+  }
   return (
     <div className="buttonGroup">
-      { buttons.map((button, index) => {
-        const buttonProps = {
-          style,
-          button,
-          index,
-        };
-        return <AppButton { ...buttonProps } />;
-      })}
+      { buttons.map(createButton) }
     </div>
   );
 }
