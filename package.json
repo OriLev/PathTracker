@@ -10,7 +10,7 @@
     "test": "eslint .",
     "lintFix": "eslint --fix .",
     "predeploy": "npm run create",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Ori Levitan",
   "babel": {
