@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 39);
@@ -10162,11 +10162,28 @@ var App = (_class = function (_React$Component) {
 
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
-        null,
+        { basename: '/PathTracker' },
         _react2.default.createElement(
           'div',
           { className: 'container' },
-          _react2.default.createElement(_Game2.default, gameProps)
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, {
+              exact: true,
+              path: '/',
+              render: function render() {
+                return _react2.default.createElement(_Game2.default, gameProps);
+              }
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, {
+              exact: true,
+              path: '/settings',
+              render: function render() {
+                return _react2.default.createElement(_SettingsScreen2.default, settingsProps);
+              }
+            })
+          )
         )
       );
     }
