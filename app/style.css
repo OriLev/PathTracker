@@ -57,6 +57,14 @@
   position: absolute;
 }
 
+.resetButton {
+  padding: 3px;
+  border-radius: 2px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
 .pageMain {
   border-top: solid 2px darkGray;
   height: 80vh;
