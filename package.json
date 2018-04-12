@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://orilev.github.io/PathTracker",
   "scripts": {
     "create": "webpack",
     "start": "webpack-dev-server --open",
     "test": "eslint .",
-    "lintFix": "eslint --fix ."
+    "lintFix": "eslint --fix .",
+    "predeploy": "npm run create",
+    "deploy": "gh-pages -d build"
   },
   "author": "Ori Levitan",
   "babel": {
