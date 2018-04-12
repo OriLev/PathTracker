@@ -66,7 +66,11 @@ export default class App extends React.Component {
   @autobind
   resetBoard() {
     const { x: lengthX, y: lengthY, } = this.props.dimensions;
-    this.setState({ board: createBoard(lengthX, lengthY)});
+    this.setState({
+      board: createBoard(lengthX, lengthY),
+      pathStartingPoint: [],
+      pathEndingPoint: [],
+    });
   }
 
   @autobind
