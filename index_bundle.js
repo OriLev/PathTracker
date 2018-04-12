@@ -10155,15 +10155,14 @@ var App = (_class = function (_React$Component) {
         setBoardColor: setBoardColor
       };
 
-      return (
-        // <BrowserRouter>
+      return _react2.default.createElement(
+        _reactRouterDom.BrowserRouter,
+        null,
         _react2.default.createElement(
           'div',
           { className: 'container' },
           _react2.default.createElement(_Game2.default, gameProps)
         )
-        // </BrowserRouter>
-
       );
     }
   }]);
