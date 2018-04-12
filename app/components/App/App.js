@@ -209,7 +209,7 @@ export default class App extends React.Component {
     };
     
     return (
-      <BrowserRouter>
+      // <BrowserRouter>
         <div className="container">
           {/* <Switch>
             <Route
@@ -228,7 +228,7 @@ export default class App extends React.Component {
             />
           </Switch> */}
         </div>
-      </BrowserRouter>
+      // </BrowserRouter>
     );
   }
 }
