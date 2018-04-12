@@ -47,10 +47,9 @@ export default function GameInstructions({ instructionsState, }) {
   }
 
   const currentInstructions = createInstructions(instructionsState);
-  const instructionsProps = { instructions: currentInstructions, };
   return (
     <div>
-      <InstructionsBox { ...instructionsProps } />
+      <InstructionsBox instructions={ currentInstructions } />
     </div>
   );
 }

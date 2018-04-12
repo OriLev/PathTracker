@@ -4,6 +4,7 @@ import { Link, } from 'react-router-dom';
 import GameInstructions from '../GameInstructions/GameInstructions';
 
 export default function GameHeader({
+  resetBoard,
   gameHeaderState: {
     pathStartingPoint,
     pathEndingPoint,
@@ -28,6 +29,7 @@ export default function GameHeader({
   return (
     <div className="pageHeader">
       <Link { ...linkProps } />
+      <input className="resetButton" type="button" value="reset" onClick={ resetBoard } />
       <div className="instructionsWrapper">
         <GameInstructions { ...instructionsProps } />
       </div>

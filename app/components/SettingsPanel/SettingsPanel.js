@@ -7,40 +7,62 @@ import SubmitColorsButton from '../SubmitColorsButton/SubmitColorsButton';
 export default class SettingsPanel extends React.Component {
   constructor(props) {
     super(props);
+    const { colorA, colorB, colorC, } = this.props;
     this.state = {
-      newColorA: '',
-      newColorB: '',
-      newColorC: '',
+      newColorA: colorA,
+      newColorB: colorB,
+      newColorC: colorC,
     };
+    this.stateValidation = {
+      newColorA: { isValid: true, defaultColor: colorA, },
+      newColorB: { isValid: true, defaultColor: colorB, },
+      newColorC: { isValid: true, defaultColor: colorC, },
+    };
+    this.newColorNames = Object.keys(this.state);
+  }
+  componentWillUpdate(nextProps, nextState) {
+    const { stateValidation, newColorNames, } = this;
+    const isHexColor = colorKey => (
+      /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(nextState[colorKey])
+    );
+    function validateInput(colorKey) {
+      stateValidation[colorKey].isValid = isHexColor(colorKey);
+    }
+    newColorNames.map(validateInput);
   }
   componentWillUnmount() {
     const { setBoardColor, } = this.props;
-    const { newColorA, newColorB, newColorC, } = this.state;
-    const colors = [
-      { colorLetter: 'A', currentNewColor: newColorA, defaultText: 'red (#f00)', },
-      { colorLetter: 'B', currentNewColor: newColorB, defaultText: 'blue (#00f)', },
-      { colorLetter: 'C', currentNewColor: newColorC, defaultText: 'green (#0f0)', },
-    ];
-    colors.map(color => setBoardColor(`color${color.colorLetter}`, color.currentNewColor));
+    const { state, stateValidation, newColorNames, } = this;
+    console.log(stateValidation);
+    function getColor(color) {
+      if (!stateValidation[color].isValid) {
+        return stateValidation[color].defaultColor;
+      }
+      return state[color];
+    }
+    function updateBoardColor(color) {
+      const colorLetter = color.slice(-1);
+      const newColorValue = getColor(color);
+      setBoardColor(`color${colorLetter}`, newColorValue);
+    }
+    newColorNames.map(updateBoardColor);
   }
   @autobind
   updateNewColor(e, colorLetter) {
-    const colorUpdate = {};
-    colorUpdate[`newColor${colorLetter}`] = e.target.value;
-    this.setState(colorUpdate);
+    this.setState({ [`newColor${colorLetter}`]: e.target.value, });
   }
   render() {
     const {
-      newColorA,
-      newColorB,
-      newColorC,
-    } = this.state;
-    const { updateNewColor, } = this;
-    const inputProps = {
-      newColorA,
-      newColorB,
-      newColorC,
+      state: newColors,
       updateNewColor,
+      stateValidation,
+      newColorNames,
+    } = this;
+    const inputProps = {
+      newColors,
+      updateNewColor,
+      stateValidation,
+      newColorNames,
     };
     return (
       <div className="settingsPanel">
@@ -52,5 +74,8 @@ export default class SettingsPanel extends React.Component {
 }
 
 SettingsPanel.propTypes = {
+  colorA: PropTypes.string.isRequired,
+  colorB: PropTypes.string.isRequired,
+  colorC: PropTypes.string.isRequired,
   setBoardColor: PropTypes.func.isRequired,
 };
