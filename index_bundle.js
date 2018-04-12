@@ -10161,24 +10161,7 @@ var App = (_class = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'container' },
-          _react2.default.createElement(
-            _reactRouterDom.Switch,
-            null,
-            _react2.default.createElement(_reactRouterDom.Route, {
-              exact: true,
-              path: '/',
-              render: function render() {
-                return _react2.default.createElement(_Game2.default, gameProps);
-              }
-            }),
-            _react2.default.createElement(_reactRouterDom.Route, {
-              exact: true,
-              path: '/settings',
-              render: function render() {
-                return _react2.default.createElement(_SettingsScreen2.default, settingsProps);
-              }
-            })
-          )
+          _react2.default.createElement(_Game2.default, gameProps)
         )
       );
     }
