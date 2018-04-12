@@ -70,6 +70,7 @@ export default class App extends React.Component {
       board: createBoard(lengthX, lengthY),
       pathStartingPoint: [],
       pathEndingPoint: [],
+      goButtonPressed: false,
     });
   }
 
