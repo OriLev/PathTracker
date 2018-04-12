@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch, } from 'react-router-dom';
 import findPath from '../../utils/BFS';
 import Game from '../Game/Game';
 import SettingsScreen from '../SettingsScreen/SettingsScreen';
-// const Settings = require('./Settings');
+// TODO: add a results page
 // const Results = require('./Results');
 
 function createBoard(lengthX, lengthY) {
@@ -37,9 +37,9 @@ export default class App extends React.Component {
         y: 12,
       },
       colors: {
-        A: 'red',
-        B: 'blue',
-        C: 'green',
+        A: '#ff0000',
+        B: '#0000ff',
+        C: '#00ff00',
       },
     };
   }
@@ -61,6 +61,12 @@ export default class App extends React.Component {
       // pathExistsFlag: false, // 'true if a path was found'
       // time: '',
     };
+  }
+
+  @autobind
+  resetBoard() {
+    const { x: lengthX, y: lengthY, } = this.props.dimensions;
+    this.setState({ board: createBoard(lengthX, lengthY)});
   }
 
   @autobind
@@ -154,6 +160,7 @@ export default class App extends React.Component {
   }
   render() {
     const {
+      resetBoard,
       handleClickOnBoard,
       toggleStartButtonPressed,
       toggleEndButtonPressed,
@@ -189,10 +196,15 @@ export default class App extends React.Component {
       goButtonPressed,
     };
     const gameProps = {
+      resetBoard,
       gameState,
       handleClicks,
+      
     };
     const settingsProps = {
+      colorA,
+      colorB,
+      colorC,
       setBoardColor,
     };
     return (

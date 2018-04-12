@@ -5,6 +5,7 @@ import GameHeader from '../GameHeader/GameHeader';
 import GameScreen from '../GameScreen/GameScreen';
 
 export default function Game({
+  resetBoard,
   gameState: {
     colorA,
     colorB,
@@ -39,7 +40,7 @@ export default function Game({
     gameScreenState,
     handleClicks,
   };
-  const gameHeaderProps = { gameHeaderState, };
+  const gameHeaderProps = { resetBoard, gameHeaderState, };
   return (
     <div className="gameContainer">
       <GameHeader { ...gameHeaderProps } />
