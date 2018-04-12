@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 39);
@@ -16035,7 +16035,6 @@ function GameHeader(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'pageHeader' },
-    _react2.default.createElement(_reactRouterDom.Link, linkProps),
     _react2.default.createElement('input', { className: 'resetButton', type: 'button', value: 'reset', onClick: resetBoard }),
     _react2.default.createElement(
       'div',
