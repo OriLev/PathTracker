@@ -207,6 +207,9 @@ export default class App extends React.Component {
       colorC,
       setBoardColor,
     };
+    const settingsProps = {
+      setBoardColor,
+    };
     return (
       <BrowserRouter>
         <div className="container">

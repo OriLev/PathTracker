@@ -5,8 +5,8 @@ import GameHeader from '../GameHeader/GameHeader';
 import GameScreen from '../GameScreen/GameScreen';
 
 export default function Game({
-  resetBoard,
-  gameState: {
+ resetBoard,
+ gameState: {
     colorA,
     colorB,
     colorC,
